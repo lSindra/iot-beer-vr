@@ -4,7 +4,7 @@ public class HeadsetSelector : MonoBehaviour {
 
     public LayerMask mask = 0;
 
-    void Update () {
+    public void SelectCountry() {
         RaycastHit hit;
         Ray ray = new Ray(this.transform.position, this.transform.forward);
 
