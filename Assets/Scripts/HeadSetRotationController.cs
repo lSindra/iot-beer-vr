@@ -5,18 +5,17 @@ using UnityEngine;
 public class HeadSetRotationController : MonoBehaviour {
 
     public Transform hmdOrientation;
-    public float minRotation = 0;
-    public float rotationSpeed = 5;
-
-    void Start () {}
+    public float minRotation = 0.15f;
+    public float rotationSpeed = 3;
 	
 	void Update () {
-        if (hmdOrientation.rotation.z > minRotation)
+        float hmdZRotation = hmdOrientation.rotation.z;
+        if (hmdZRotation > minRotation)
         {
-            this.transform.Rotate(new Vector3(0, 0, -rotationSpeed));
-        } else if (hmdOrientation.rotation.z < -minRotation)
+            this.transform.Rotate(new Vector3(0, rotationSpeed * -(hmdZRotation - minRotation), 0));
+        } else if (hmdZRotation < -minRotation)
         {
-            this.transform.Rotate(new Vector3(0, 0, rotationSpeed));
+            this.transform.Rotate(new Vector3(0, rotationSpeed * -(hmdZRotation + minRotation), 0));
         }
     }
 }
