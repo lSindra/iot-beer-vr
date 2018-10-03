@@ -142,10 +142,6 @@ public class OVRSceneSampleController : MonoBehaviour
         if (playerController != null)
             UpdateSpeedAndRotationScaleMultiplier();
 
-        // Toggle Fullscreen
-        if (Input.GetKeyDown(KeyCode.F11))
-            Screen.fullScreen = !Screen.fullScreen;
-
         if (Input.GetKeyDown(KeyCode.M))
 #if UNITY_2017_2_OR_NEWER
 			UnityEngine.XR.XRSettings.showDeviceView = !UnityEngine.XR.XRSettings.showDeviceView;

@@ -20,7 +20,6 @@ limitations under the License.
 ************************************************************************************/
 
 #if !UNITY_5_6_OR_NEWER
-#error Oculus Utilities require Unity 5.6 or higher.
 #endif
 
 using System;
