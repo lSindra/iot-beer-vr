@@ -87,7 +87,7 @@ public class ARController : MonoBehaviour {
 	// Application preferences.
 	public bool QuitOnEscOrBack = true;
 	public bool AutoStartAR = true;
-    public GameObject defaultCamera;
+
     #region Editor
     // UnityEditor doesn't serialize properties.
     // In order to keep track of what we're using, we serialize their properties here,
@@ -109,12 +109,15 @@ public class ARController : MonoBehaviour {
 	private bool _sceneConfiguredForVideo = false;
 	private bool _sceneConfiguredForVideoWaitingMessageLogged = false;
 
-	//
-	// Video source 0.
-	//
+    public GameObject defaultCamera;
+    public bool cameraPassthrough;
 
-	// Config. in.
-	public bool videoCparamOverride0 = false;
+    //
+    // Video source 0.
+    //
+
+    // Config. in.
+    public bool videoCparamOverride0 = false;
     public string videoCParamName0 = "camera_para";
 	public string videoConfigurationWindows0 = "-showDialog -flipV";
 	public string videoConfigurationMacOSX0 = "-width=640 -height=480";
@@ -141,12 +144,12 @@ public class ARController : MonoBehaviour {
 	public bool VideoIsStereo = false;
 	public string transL2RName = "transL2R";
 
-	//
-	// Video source 1.
-	//
-	
-	// Config. in.
-	public bool videoCparamOverride1 = false;
+    //
+    // Video source 1.
+    //
+
+    // Config. in.
+    public bool videoCparamOverride1 = false;
 	public string videoCParamName1 = "camera_paraR";
 	public string videoConfigurationWindows1 = "-devNum=2 -showDialog -flipV";
 	public string videoConfigurationMacOSX1 = "-source=1 -width=640 -height=480";
@@ -694,7 +697,7 @@ public class ARController : MonoBehaviour {
             return false;
         }
         
-        if (!_sceneConfiguredForVideo) {
+        if (!_sceneConfiguredForVideo && !cameraPassthrough) {
             
 #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
             screenOrientation = Screen.orientation;

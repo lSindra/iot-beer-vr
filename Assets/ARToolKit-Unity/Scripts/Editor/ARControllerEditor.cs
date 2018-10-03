@@ -59,6 +59,7 @@ public class ARControllerEditor : Editor {
 		}
 
         arController.defaultCamera = (GameObject) EditorGUILayout.ObjectField("Camera", arController.defaultCamera, typeof(GameObject), true);
+        arController.cameraPassthrough = !EditorGUILayout.Toggle("Use camera passthrough", !arController.cameraPassthrough);
 
         EditorGUILayout.LabelField("Version", "ARToolKit " + arController.Version);
 
