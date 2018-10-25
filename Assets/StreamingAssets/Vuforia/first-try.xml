@@ -4,14 +4,14 @@
         <ImageTarget name="Alterra_Postcard_2" size="0.264000 0.198176"/>
         <ImageTarget name="New-marker-1" size="0.075000 0.075000"/>
         <ImageTarget name="7x7_1000-10" size="0.080000 0.080000"/>
-        <ImageTarget name="new-cube.Bottom" size="0.090000 0.090000"/>
+        <ImageTarget name="new-cube.Left" size="0.090000 0.090000"/>
         <ImageTarget name="new-cube.Back" size="0.090000 0.090000"/>
         <ImageTarget name="new-cube.Top" size="0.090000 0.090000"/>
-        <ImageTarget name="new-cube.Left" size="0.090000 0.090000"/>
+        <ImageTarget name="new-cube.Bottom" size="0.090000 0.090000"/>
         <ImageTarget name="new-cube.Right" size="0.090000 0.090000"/>
         <ImageTarget name="new-cube.Front" size="0.090000 0.090000"/>
-        <ImageTarget name="marker-cube.Top" size="0.080000 0.080000"/>
         <ImageTarget name="marker-cube.Left" size="0.080000 0.080000"/>
+        <ImageTarget name="marker-cube.Top" size="0.080000 0.080000"/>
         <ImageTarget name="marker-cube.Right" size="0.080000 0.080000"/>
         <ImageTarget name="marker-cube.Front" size="0.080000 0.080000"/>
         <MultiTarget name="new-cube">
