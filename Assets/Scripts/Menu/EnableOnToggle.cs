@@ -2,9 +2,9 @@
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class CopyToggleColor : MonoBehaviour {
+public class EnableOnToggle : MonoBehaviour {
 
-    public Graphic child;
+    public Behaviour component;
     public Toggle toggle;
 
 	void Start () {
@@ -12,22 +12,22 @@ public class CopyToggleColor : MonoBehaviour {
 
         EventTrigger.Entry enterEntry = new EventTrigger.Entry();
         enterEntry.eventID = EventTriggerType.PointerEnter;
-        enterEntry.callback.AddListener((data) => { EnterColor((PointerEventData)data); });
+        enterEntry.callback.AddListener((data) => { Enable(); });
 
         EventTrigger.Entry exitEntry = new EventTrigger.Entry();
         exitEntry.eventID = EventTriggerType.PointerExit;
-        exitEntry.callback.AddListener((data) => { ExitColor((PointerEventData)data); });
+        exitEntry.callback.AddListener((data) => { Disable(); });
 
         eventTrigger.triggers.Add(enterEntry);
         eventTrigger.triggers.Add(exitEntry);
     }
 
-    protected void EnterColor(PointerEventData data) {
-        child.color = toggle.colors.highlightedColor;
+    protected void Enable() {
+        component.enabled = true;
     }
 
-    protected void ExitColor(PointerEventData data)
+    protected void Disable()
     {
-        child.color = toggle.colors.normalColor;
+        component.enabled = false;
     }
 }
