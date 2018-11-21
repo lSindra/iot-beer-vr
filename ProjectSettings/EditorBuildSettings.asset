@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Countries/Country1.unity
+    guid: e4dd924e7cbec44ab9383768b70c8ca0
+  - enabled: 1
     path: Assets/Scenes/mainLevel.unity
     guid: 93ca6b1d586864b9ba088e302f231b0b
-  - enabled: 1
-    path: Assets/Scenes/Countries/Country1.unity
-    guid: 74410466e2b694b4784a8f8f4bdf937e
   - enabled: 0
     path: Assets/Scenes/Countries/Country2.unity
     guid: 4ad7a07eafdd14d58adf36280822130b
