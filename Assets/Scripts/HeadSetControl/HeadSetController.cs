@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class HeadSetController : MonoBehaviour {
-	
+    public FadeInAndOut fader;
+
 	void Update () {
         //Touch
         if(OVRInput.Get(OVRInput.Button.One))
@@ -14,7 +12,9 @@ public class HeadSetController : MonoBehaviour {
         //Back button
         if (OVRInput.Get(OVRInput.Button.Two))
         {
-            SceneManager.LoadSceneAsync("mainLevel");
+            fader.FadeOpaque();
+            LoadSceneAsyncOperation sceneAsyncOperation = new LoadSceneAsyncOperation();
+            StartCoroutine(sceneAsyncOperation.LoadAsync("mainLevel"));
         }
     }
 }

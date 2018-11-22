@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class SelectCountry : MonoBehaviour
 {
-
     public Toggle toggle;
     public AudioSource audioEffect;
     public string countryName;
+    public FadeInAndOut fader;
 
     void Start()
     {
@@ -19,6 +16,8 @@ public class SelectCountry : MonoBehaviour
     void ToggleEffect(bool isOn)
     {
         audioEffect.PlayOneShot(audioEffect.clip);
-        SceneManager.LoadSceneAsync(countryName);
+        fader.FadeOpaque();
+        LoadSceneAsyncOperation sceneAsyncOperation = new LoadSceneAsyncOperation();
+        StartCoroutine(sceneAsyncOperation.LoadAsync(countryName));
     }
 }
