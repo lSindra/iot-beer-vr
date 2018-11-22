@@ -3,10 +3,10 @@ using UnityEngine.UI;
 
 public class SelectCountry : MonoBehaviour
 {
-
     public Toggle toggle;
     public AudioSource audioEffect;
     public string countryName;
+    public FadeInAndOut fader;
 
     void Start()
     {
@@ -16,7 +16,8 @@ public class SelectCountry : MonoBehaviour
     void ToggleEffect(bool isOn)
     {
         audioEffect.PlayOneShot(audioEffect.clip);
+        fader.FadeOpaque();
         LoadSceneAsyncOperation sceneAsyncOperation = new LoadSceneAsyncOperation();
-        sceneAsyncOperation.LoadScene(countryName);
+        StartCoroutine(sceneAsyncOperation.LoadAsync(countryName));
     }
 }

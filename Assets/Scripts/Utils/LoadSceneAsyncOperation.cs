@@ -4,14 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class LoadSceneAsyncOperation : MonoBehaviour
 {
-    public void LoadScene(string sceneName)
-    {
-        FadeInAndOut fader = new FadeInAndOut();
-        fader.FadeOpaque();
-        StartCoroutine(LoadAsync(sceneName));
-    }
-
-    IEnumerator LoadAsync(string sceneName)
+    public IEnumerator LoadAsync(string sceneName)
     {
         yield return null;
 

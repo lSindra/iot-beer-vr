@@ -113,7 +113,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 5f8377ffdf6864449a79c417d5f6713f, type: 2}
+  - {fileID: 2100000, guid: 7419c18aec34a4d5f888cf0a4e13d024, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -149,7 +149,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 98e27e4a7aaeb4afea8a25b91fdb52d5, type: 2}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.26853323, g: 1, b: 0, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -326,7 +326,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'USA
+  m_Text: 'Brazil
 
 '
 --- !u!114 &114786924768975420
@@ -342,7 +342,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toggle: {fileID: 114926445785924140}
   audioEffect: {fileID: 82850447871161484}
-  countryName: Country1
+  countryName: Country2
+  fader: {fileID: 0}
 --- !u!114 &114804836382484760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -462,19 +463,19 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1799015199244154}
-  m_LocalRotation: {x: 0.32329184, y: 0.055862878, z: 0.005172956, w: 0.94463485}
-  m_LocalPosition: {x: 0, y: 0, z: -86.2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.07049232, y: -0.32409966, z: -0.09118919, w: 0.93897545}
+  m_LocalPosition: {x: 0, y: 0, z: -89}
+  m_LocalScale: {x: 0.5775714, y: 0.57757145, z: 0.5775714}
   m_Children:
   - {fileID: 224992050983850116}
   - {fileID: 224475747385958912}
   - {fileID: 4340230902833344}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 37.605003, y: 7.9000006, z: 3.321}
+  m_LocalEulerAnglesHint: {x: -11.040001, y: -37.374, z: -7.3500004}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -19.132, y: 58.14681}
+  m_AnchoredPosition: {x: 54.3, y: -23.495792}
   m_SizeDelta: {x: 30.74, y: 30.4}
   m_Pivot: {x: 0, y: 0}
 --- !u!224 &224475747385958912
@@ -501,13 +502,13 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1990895659888820}
-  m_LocalRotation: {x: 0.3828306, y: 0.031790428, z: 0.010535886, w: -0.9232114}
+  m_LocalRotation: {x: -0.19765733, y: 0, z: -0, w: -0.9802712}
   m_LocalPosition: {x: 0, y: 0, z: -7.8}
   m_LocalScale: {x: 0.031023411, y: 0.022618202, z: 0.083355986}
   m_Children: []
   m_Father: {fileID: 224137166807612170}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -45.035004, y: 355.891, z: 0.39600003}
+  m_LocalEulerAnglesHint: {x: 22.8, y: 360, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.3, y: 8.6}
