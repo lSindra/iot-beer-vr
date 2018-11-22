@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class SelectCountry : MonoBehaviour
@@ -19,6 +16,7 @@ public class SelectCountry : MonoBehaviour
     void ToggleEffect(bool isOn)
     {
         audioEffect.PlayOneShot(audioEffect.clip);
-        SceneManager.LoadSceneAsync(countryName);
+        LoadSceneAsyncOperation sceneAsyncOperation = new LoadSceneAsyncOperation();
+        sceneAsyncOperation.LoadScene(countryName);
     }
 }

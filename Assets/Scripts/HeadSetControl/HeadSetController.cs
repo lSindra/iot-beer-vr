@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class HeadSetController : MonoBehaviour {
 	
@@ -14,7 +11,8 @@ public class HeadSetController : MonoBehaviour {
         //Back button
         if (OVRInput.Get(OVRInput.Button.Two))
         {
-            SceneManager.LoadSceneAsync("mainLevel");
+            LoadSceneAsyncOperation sceneAsyncOperation = new LoadSceneAsyncOperation();
+            sceneAsyncOperation.LoadScene("mainLevel");
         }
     }
 }
