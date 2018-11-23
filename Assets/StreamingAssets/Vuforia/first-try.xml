@@ -1,32 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<QCARConfig>
-    <Tracking>
-        <ImageTarget name="Alterra_Postcard_2" size="0.264000 0.198176"/>
-        <ImageTarget name="New-marker-1" size="0.075000 0.075000"/>
-        <ImageTarget name="7x7_1000-10" size="0.080000 0.080000"/>
-        <ImageTarget name="new-cube.Left" size="0.090000 0.090000"/>
-        <ImageTarget name="new-cube.Back" size="0.090000 0.090000"/>
-        <ImageTarget name="new-cube.Top" size="0.090000 0.090000"/>
-        <ImageTarget name="new-cube.Bottom" size="0.090000 0.090000"/>
-        <ImageTarget name="new-cube.Right" size="0.090000 0.090000"/>
-        <ImageTarget name="new-cube.Front" size="0.090000 0.090000"/>
-        <ImageTarget name="marker-cube.Left" size="0.080000 0.080000"/>
-        <ImageTarget name="marker-cube.Top" size="0.080000 0.080000"/>
-        <ImageTarget name="marker-cube.Right" size="0.080000 0.080000"/>
-        <ImageTarget name="marker-cube.Front" size="0.080000 0.080000"/>
-        <MultiTarget name="new-cube">
-            <Part name="new-cube.Left" translation="-0.04500000178813934 0 0" rotation="AD: 0 1 0 -90"/>
-            <Part name="new-cube.Right" translation="0.04500000178813934 0 0" rotation="AD: 0 1 0 90"/>
-            <Part name="new-cube.Front" translation="0 0 0.04500000178813934" rotation="AD: 1 0 0 0"/>
-            <Part name="new-cube.Back" translation="0 0 -0.04500000178813934" rotation="AD: 0 1 0 180"/>
-            <Part name="new-cube.Top" translation="0 0.04500000178813934 0" rotation="AD: 1 0 0 -90"/>
-            <Part name="new-cube.Bottom" translation="0 -0.04500000178813934 0" rotation="AD: 1 0 0 90"/>
-        </MultiTarget>
-        <MultiTarget name="marker-cube">
-            <Part name="marker-cube.Left" translation="-0.03999999910593033 0 0" rotation="AD: 0 1 0 -90"/>
-            <Part name="marker-cube.Right" translation="0.03999999910593033 0 0" rotation="AD: 0 1 0 90"/>
-            <Part name="marker-cube.Front" translation="0 0 0.03999999910593033" rotation="AD: 1 0 0 0"/>
-            <Part name="marker-cube.Top" translation="0 0.03999999910593033 0" rotation="AD: 1 0 0 -90"/>
-        </MultiTarget>
-    </Tracking>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="ground" size="0.300000 0.212208" />
+  </Tracking>
 </QCARConfig>
