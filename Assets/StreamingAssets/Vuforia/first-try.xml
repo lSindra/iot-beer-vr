@@ -2,5 +2,6 @@
 <QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
   <Tracking>
     <ImageTarget name="ground" size="0.300000 0.212208" />
+    <ImageTarget name="Alterra_Postcard_2" size="0.264000 0.198176" />
   </Tracking>
 </QCARConfig>
