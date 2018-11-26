@@ -28,6 +28,7 @@ GameObject:
   - component: {fileID: 2037080}
   - component: {fileID: 114753469989128706}
   - component: {fileID: 114149019410429958}
+  - component: {fileID: 114788189810443600}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: MainCamera
@@ -48,6 +49,7 @@ GameObject:
   - component: {fileID: 114180249635284470}
   - component: {fileID: 114247486075934750}
   - component: {fileID: 114480570227213898}
+  - component: {fileID: 114939143807760818}
   m_Layer: 0
   m_Name: OVRCameraRig
   m_TagString: MainCamera
@@ -561,6 +563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47fc6b850db634c6599357daa2fd87f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fader: {fileID: 114082843905248066}
 --- !u!114 &114753469989128706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -570,6 +573,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c47f92041efbb4b429a4eafca855ebe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114788189810443600
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 855b27d100ed84378a9f9e381bc77395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smoothingFrames: 3
+--- !u!114 &114939143807760818
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7af7fab14aeb14798b82cd02d0a960b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &135752666696090736

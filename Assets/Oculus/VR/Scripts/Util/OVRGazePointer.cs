@@ -166,11 +166,8 @@ public class OVRGazePointer : MonoBehaviour {
         progressIndicator = transform.GetComponent<OVRProgressIndicator>();
     }
     
-    void Update () 
+    void UpdateTransform () 
     {
-		if (rayTransform == null && Camera.main != null)
-			rayTransform = Camera.main.transform;
-		
         // Move the gaze cursor to keep it in the middle of the view
         transform.position = rayTransform.position + rayTransform.forward * depth;
 
@@ -192,12 +189,11 @@ public class OVRGazePointer : MonoBehaviour {
     /// <param name="normal"></param>
     public void SetPosition(Vector3 pos, Vector3 normal)
     {
-        transform.position = pos;
         
         // Set the rotation to match the normal of the surface it's on.
-        Quaternion newRot = transform.rotation;
-        newRot.SetLookRotation(normal, rayTransform.up);
-        transform.rotation = newRot;
+        //Quaternion newRot = transform.rotation;
+        //newRot.SetLookRotation(normal, rayTransform.up);
+        //transform.rotation = newRot;
 
         // record depth so that distance doesn't pop when pointer leaves an object
         depth = (rayTransform.position - pos).magnitude;
@@ -225,6 +221,8 @@ public class OVRGazePointer : MonoBehaviour {
 
     void LateUpdate()
     {
+        UpdateTransform();
+
         // This happens after all Updates so we know that if positionSetsThisFrame is zero then nothing set the position this frame
         if (positionSetsThisFrame == 0)
         {
