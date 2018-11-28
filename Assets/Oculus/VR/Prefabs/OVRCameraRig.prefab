@@ -26,9 +26,9 @@ GameObject:
   - component: {fileID: 400002}
   - component: {fileID: 8100000}
   - component: {fileID: 2037080}
-  - component: {fileID: 114753469989128706}
-  - component: {fileID: 114149019410429958}
   - component: {fileID: 114788189810443600}
+  - component: {fileID: 114947647408427976}
+  - component: {fileID: 114320269319893980}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: MainCamera
@@ -369,7 +369,7 @@ Transform:
   m_GameObject: {fileID: 1610125871038294}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.21634029, y: 0.21634029, z: 0.21634029}
   m_Children: []
   m_Father: {fileID: 400002}
   m_RootOrder: 0
@@ -508,19 +508,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   materialFaded: {fileID: 2100000, guid: 71f8d9a6753944b6ca4517cbcf6211e2, type: 2}
---- !u!114 &114149019410429958
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1826476478, guid: bab6fa851cf5a1a4bba3cec5f191cb8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mWorldCenterMode: 2
-  mWorldCenter: {fileID: 0}
 --- !u!114 &114180249635284470
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -552,6 +539,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 32
   sortOrder: 20
+--- !u!114 &114320269319893980
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1826476478, guid: bab6fa851cf5a1a4bba3cec5f191cb8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mWorldCenterMode: 2
+  mWorldCenter: {fileID: 0}
 --- !u!114 &114480570227213898
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -564,17 +564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fader: {fileID: 114082843905248066}
---- !u!114 &114753469989128706
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c47f92041efbb4b429a4eafca855ebe3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 100002}
 --- !u!114 &114788189810443600
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -587,6 +577,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smoothingFrames: 3
+  smoothPosition: 1
+  smoothRotation: 0
 --- !u!114 &114939143807760818
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -596,6 +588,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7af7fab14aeb14798b82cd02d0a960b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114947647408427976
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c47f92041efbb4b429a4eafca855ebe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &135752666696090736

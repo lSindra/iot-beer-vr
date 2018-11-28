@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Vuforia;
 using InputTracking = UnityEngine.XR.InputTracking;
 using Node = UnityEngine.XR.XRNode;
+using System;
 
 [RequireComponent(typeof (VuforiaBehaviour))]
 public class SmoothCamera : MonoBehaviour {
@@ -17,9 +18,6 @@ public class SmoothCamera : MonoBehaviour {
 
 	private Queue<Quaternion> rotations;
 	private Queue<Vector3> positions;
-
-	public void OnInitialized() {
-	}
 
 	public void OnTrackablesUpdated() {
         if (rotations.Count >= smoothingFrames) {
@@ -51,6 +49,20 @@ public class SmoothCamera : MonoBehaviour {
         }
     }
 
+    public void Reset()
+    {
+        rotations.Dequeue();
+        positions.Dequeue();
+        rotations.Clear();
+        positions.Clear();
+        transform.position = new Vector3(0, 0, 0);
+        transform.rotation = new Quaternion(0, 0, 0, 0);
+        smoothedPosition = new Vector3(0, 0, 0);
+        smoothedRotation = new Quaternion(0, 0, 0, 0);
+        rotations.Enqueue(transform.rotation);
+        positions.Enqueue(transform.position);
+    }
+
     // Use this for initialization
     void Start () {
 
@@ -66,8 +78,11 @@ public class SmoothCamera : MonoBehaviour {
 		vuforia.RegisterTrackablesUpdatedCallback (OnTrackablesUpdated);
 	}
 
-	// Update is called once per frame
-	void LateUpdate () {
+    private void OnInitialized()
+    {}
+
+    // Update is called once per frame
+    void LateUpdate () {
         transform.rotation = InputTracking.GetLocalRotation(Node.CenterEye);
         if (smoothPosition) {
             transform.position = smoothedPosition;

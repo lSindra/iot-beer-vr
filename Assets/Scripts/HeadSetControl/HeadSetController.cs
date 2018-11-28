@@ -5,28 +5,47 @@ using UnityEngine.SceneManagement;
 public class HeadSetController : MonoBehaviour
 {
     public FadeInAndOut fader;
+    public GameObject playerCamera;
 
+    private SmoothCamera smoothCamera;
+
+    private void Start()
+    {
+        smoothCamera = playerCamera.GetComponent<SmoothCamera>();
+    }
     void Update()
     {
-        //Touch
-        if (OVRInput.Get(OVRInput.Button.One))
-        {
-            SendMessage("SelectCountry");
-        }
-        //Back button
         if (OVRInput.Get(OVRInput.Button.Two))
         {
-            StartCoroutine(LoadAsync("mainLevel"));
-
-            //if (SceneManager.GetActiveScene().name != "mainLevel")
-            //{
-            //    fader.FadeOpaque();
-            //    SceneManager.LoadSceneAsync("mainLevel");
-            //}
+            LoadScene();
+        }
+        if (OVRInput.Get(OVRInput.Touch.One))
+        {
+            RecenterPose();
         }
     }
 
-    private IEnumerator LoadAsync(string sceneName)
+    private void LoadScene()
+    {
+        StartCoroutine(LoadScene("mainLevel"));
+
+        //if (SceneManager.GetActiveScene().name != "mainLevel")
+        //{
+        //    fader.FadeOpaque();
+        //    SceneManager.LoadSceneAsync("mainLevel");
+        //}
+    }
+
+    private void RecenterPose()
+    {
+        if (smoothCamera != null)
+        {
+            //OVRManager.display.RecenterPose();
+            smoothCamera.Reset();
+        }
+    }
+
+    private IEnumerator LoadScene(string sceneName)
     {
         if (SceneManager.GetActiveScene().name != sceneName)
         {
