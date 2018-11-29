@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 33368885840534286}
   - component: {fileID: 114625114278601128}
   - component: {fileID: 114139830842238046}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 223270101353334102}
   - component: {fileID: 114843738656139442}
   - component: {fileID: 114263141025968966}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: LightCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 222328973010440864}
   - component: {fileID: 114085798604880146}
   - component: {fileID: 114926445785924140}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ GameObject:
   - component: {fileID: 114436755010529752}
   - component: {fileID: 82456807885291658}
   - component: {fileID: 114548669992757432}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: c1956e4f94c635d428c9bdbddf0ac2c8, type: 2}
+  - {fileID: 2100000, guid: b2ec8bed3a5184355a5220aa11680f57, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -33472,7 +33472,6 @@ MonoBehaviour:
   toggle: {fileID: 114926445785924140}
   audioEffect: {fileID: 82456807885291658}
   countryName: USA
-  fader: {fileID: 0}
   controllerPosition: {fileID: 0}
 --- !u!114 &114548669992757432
 MonoBehaviour:
@@ -33713,7 +33712,7 @@ RectTransform:
   m_GameObject: {fileID: 1976822586551598}
   m_LocalRotation: {x: 0.015051336, y: -0.020094516, z: -0.048186, w: 0.9985228}
   m_LocalPosition: {x: 0, y: 0, z: -0.92}
-  m_LocalScale: {x: 39, y: 35.6, z: 7.7999997}
+  m_LocalScale: {x: 110.1, y: 77.1, z: 7.7999997}
   m_Children: []
   m_Father: {fileID: 224137166807612170}
   m_RootOrder: 0
