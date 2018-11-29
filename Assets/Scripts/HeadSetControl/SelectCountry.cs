@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using KetosGames.SceneTransition;
 
 public class SelectCountry : MonoBehaviour
 {
     public Toggle toggle;
     public AudioSource audioEffect;
     public string countryName;
-    public FadeInAndOut fader;
     public Transform controllerPosition;
 
     private CountryNavigation navigation;
@@ -22,8 +22,7 @@ public class SelectCountry : MonoBehaviour
     {
         audioEffect.PlayOneShot(audioEffect.clip);
 
-        LoadSceneAsyncOperation sceneAsyncOperation = new LoadSceneAsyncOperation();
-        StartCoroutine(sceneAsyncOperation.LoadAsync(countryName));
+        DeleteControllers();
 
         StartCoroutine(NavigateAndFade());
     }
@@ -34,6 +33,15 @@ public class SelectCountry : MonoBehaviour
 
         yield return new WaitForSeconds(1);
 
-        fader.FadeOpaque();
+        SceneLoader.LoadScene(countryName);
+    }
+
+    private void DeleteControllers()
+    {
+        GameObject[] controllers = GameObject.FindGameObjectsWithTag("GameController");
+        foreach (GameObject controller in controllers)
+        {
+            controller.SetActive(false);
+        }
     }
 }

@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f4cb53abcb134a75aebffa7b4db869c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  materialFaded: {fileID: 2100000, guid: 71f8d9a6753944b6ca4517cbcf6211e2, type: 2}
 --- !u!135 &135219098972614032
 SphereCollider:
   m_ObjectHideFlags: 1

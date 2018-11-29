@@ -1,59 +1,36 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using KetosGames.SceneTransition;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class HeadSetController : MonoBehaviour
 {
-    public FadeInAndOut fader;
-    public GameObject playerCamera;
-
-    private SmoothCamera smoothCamera;
-
-    private void Start()
+    void Start()
     {
-        smoothCamera = playerCamera.GetComponent<SmoothCamera>();
     }
+
     void Update()
     {
-        if (OVRInput.Get(OVRInput.Button.Two))
-        {
-            LoadScene();
-        }
-        if (OVRInput.Get(OVRInput.Touch.One))
+        if (!OVRPlugin.userPresent)
         {
             RecenterPose();
         }
+        if (OVRInput.Get(OVRInput.Button.Two))
+        {
+            BackToStart();
+        }
     }
 
-    private void LoadScene()
+    private void BackToStart()
     {
-        StartCoroutine(LoadScene("mainLevel"));
-
-        //if (SceneManager.GetActiveScene().name != "mainLevel")
-        //{
-        //    fader.FadeOpaque();
-        //    SceneManager.LoadSceneAsync("mainLevel");
-        //}
+        if (SceneManager.GetActiveScene().name != "mainLevel")
+        {
+            SceneLoader.LoadScene("mainLevel");
+        }
     }
 
     private void RecenterPose()
     {
-        if (smoothCamera != null)
-        {
-            //OVRManager.display.RecenterPose();
-            smoothCamera.Reset();
-        }
-    }
-
-    private IEnumerator LoadScene(string sceneName)
-    {
-        if (SceneManager.GetActiveScene().name != sceneName)
-        {
-            fader.FadeOpaque();
-
-            yield return new WaitForSeconds(2);
-
-            SceneManager.LoadScene(sceneName);
-        }
+        SceneLoader.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

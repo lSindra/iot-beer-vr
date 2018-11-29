@@ -4,7 +4,7 @@
 QualitySettings:
   m_ObjectHideFlags: 0
   serializedVersion: 5
-  m_CurrentQuality: 3
+  m_CurrentQuality: 4
   m_QualitySettings:
   - serializedVersion: 2
     name: Very Low
@@ -145,20 +145,20 @@ QualitySettings:
   - serializedVersion: 2
     name: Very High
     pixelLightCount: 3
-    shadows: 2
+    shadows: 1
     shadowResolution: 2
-    shadowProjection: 1
-    shadowCascades: 2
-    shadowDistance: 40
+    shadowProjection: 0
+    shadowCascades: 4
+    shadowDistance: 12.65
     shadowNearPlaneOffset: 3
     shadowCascade2Split: 0.33333334
-    shadowCascade4Split: {x: 0.06666667, y: 0.2, z: 0.46666667}
+    shadowCascade4Split: {x: 0.102380954, y: 0.2595238, z: 0.45079362}
     shadowmaskMode: 1
     blendWeights: 4
     textureQuality: 0
     anisotropicTextures: 1
-    antiAliasing: 4
-    softParticles: 1
+    antiAliasing: 2
+    softParticles: 0
     softVegetation: 1
     realtimeReflectionProbes: 1
     billboardsFaceCameraPosition: 1
@@ -172,40 +172,6 @@ QualitySettings:
     streamingMipmapsMaxLevelReduction: 2
     streamingMipmapsMaxFileIORequests: 1024
     particleRaycastBudget: 1024
-    asyncUploadTimeSlice: 2
-    asyncUploadBufferSize: 4
-    resolutionScalingFixedDPIFactor: 1
-    excludedTargetPlatforms: []
-  - serializedVersion: 2
-    name: Ultra
-    pixelLightCount: 4
-    shadows: 2
-    shadowResolution: 2
-    shadowProjection: 1
-    shadowCascades: 4
-    shadowDistance: 150
-    shadowNearPlaneOffset: 3
-    shadowCascade2Split: 0.33333334
-    shadowCascade4Split: {x: 0.06666667, y: 0.2, z: 0.46666667}
-    shadowmaskMode: 1
-    blendWeights: 4
-    textureQuality: 0
-    anisotropicTextures: 1
-    antiAliasing: 4
-    softParticles: 1
-    softVegetation: 1
-    realtimeReflectionProbes: 1
-    billboardsFaceCameraPosition: 1
-    vSyncCount: 1
-    lodBias: 2
-    maximumLODLevel: 0
-    streamingMipmapsActive: 0
-    streamingMipmapsAddAllCameras: 1
-    streamingMipmapsMemoryBudget: 512
-    streamingMipmapsRenderersPerFrame: 512
-    streamingMipmapsMaxLevelReduction: 2
-    streamingMipmapsMaxFileIORequests: 1024
-    particleRaycastBudget: 4096
     asyncUploadTimeSlice: 2
     asyncUploadBufferSize: 4
     resolutionScalingFixedDPIFactor: 1

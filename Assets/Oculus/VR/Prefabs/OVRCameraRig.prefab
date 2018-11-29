@@ -29,6 +29,7 @@ GameObject:
   - component: {fileID: 114788189810443600}
   - component: {fileID: 114947647408427976}
   - component: {fileID: 114320269319893980}
+  - component: {fileID: 114820910952323282}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: MainCamera
@@ -49,7 +50,6 @@ GameObject:
   - component: {fileID: 114180249635284470}
   - component: {fileID: 114247486075934750}
   - component: {fileID: 114480570227213898}
-  - component: {fileID: 114939143807760818}
   m_Layer: 0
   m_Name: OVRCameraRig
   m_TagString: MainCamera
@@ -155,8 +155,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4382867940939786}
+  m_Children: []
   m_Father: {fileID: 459718}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -280,7 +279,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 0
   m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
+  m_AllowDynamicResolution: 1
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -308,7 +307,7 @@ MonoBehaviour:
   _monoscopic: 0
   enableAdaptiveResolution: 1
   minRenderScale: 0.7
-  maxRenderScale: 1
+  maxRenderScale: 1.42
   _headPoseRelativeOffsetRotation: {x: 0, y: 0, z: 0}
   _headPoseRelativeOffsetTranslation: {x: 0, y: 0, z: 0}
   _trackingOriginType: 0
@@ -316,8 +315,8 @@ MonoBehaviour:
   useRotationTracking: 1
   useIPDInPositionTracking: 1
   resetTrackerOnLoad: 1
-  AllowRecenter: 1
-  _reorientHMDOnControllerRecenter: 1
+  AllowRecenter: 0
+  _reorientHMDOnControllerRecenter: 0
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -342,38 +341,6 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100004}
   m_IsPrefabAsset: 1
---- !u!1 &1610125871038294
-GameObject:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4382867940939786}
-  - component: {fileID: 33779658967752666}
-  - component: {fileID: 23636079479401588}
-  - component: {fileID: 135752666696090736}
-  - component: {fileID: 114082843905248066}
-  m_Layer: 0
-  m_Name: FadeBlack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4382867940939786
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1610125871038294}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.21634029, y: 0.21634029, z: 0.21634029}
-  m_Children: []
-  m_Father: {fileID: 400002}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &20000010189485334
 Camera:
   m_ObjectHideFlags: 1
@@ -454,60 +421,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!23 &23636079479401588
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1610125871038294}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
-  m_Materials:
-  - {fileID: 2100000, guid: 71f8d9a6753944b6ca4517cbcf6211e2, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &33779658967752666
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1610125871038294}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114082843905248066
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1610125871038294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f4cb53abcb134a75aebffa7b4db869c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  materialFaded: {fileID: 2100000, guid: 71f8d9a6753944b6ca4517cbcf6211e2, type: 2}
 --- !u!114 &114180249635284470
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -537,7 +450,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EventMask:
     serializedVersion: 2
-    m_Bits: 32
+    m_Bits: 16
   sortOrder: 20
 --- !u!114 &114320269319893980
 MonoBehaviour:
@@ -563,8 +476,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47fc6b850db634c6599357daa2fd87f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fader: {fileID: 114082843905248066}
-  playerCamera: {fileID: 100002}
 --- !u!114 &114788189810443600
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -578,18 +489,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smoothingFrames: 3
   smoothPosition: 1
-  smoothRotation: 0
---- !u!114 &114939143807760818
+  smoothRotation: 1
+--- !u!114 &114820910952323282
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100004}
+  m_GameObject: {fileID: 100002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7af7fab14aeb14798b82cd02d0a960b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 879fe7b2871254ccd99bd85b74af3c6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LoadingScreen: {fileID: 0}
+  FadeImage: {fileID: 0}
+  FadeMaterial: {fileID: 2100000, guid: e642b458f4453e04ab7e2b711c58db98, type: 2}
+  VRMode: 1
+  UseSceneForLoadingScreen: 0
+  LoadingSceneName: Loading
+  FadeInLoadingScreen: 1
+  FadeOutLoadingScreen: 1
+  FadeSeconds: 2
+  MinimumLoadingScreenSeconds: 1
+  FadeColor: {r: 0, g: 0, b: 0, a: 1}
+  IgnoreTimeScale: 0
+  Progress: 0
 --- !u!114 &114947647408427976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -601,15 +525,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c47f92041efbb4b429a4eafca855ebe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &135752666696090736
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1610125871038294}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
