@@ -1,21 +1,28 @@
 fileFormatVersion: 2
-guid: bea0fd9550d1547e082262dec0d7c06e
+guid: 2c25f9c719943425e8611668823542dc
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: default
-    400000: //RootNode
-    400002: default
+    100000: beer
+    100002: //RootNode
+    100004: cap
+    400000: beer
+    400002: //RootNode
+    400004: cap
     2100000: bottle_logo_front
     2100002: bottle_glass
     2100004: bottle_logo_back
-    2100006: bottle_beer
-    2100008: bottle_cap
-    2300000: default
-    3300000: default
-    4300000: default
-    2186277476908879412: ImportLogs
+    2100006: bottle_cap
+    2100008: bottle_beer
+    2300000: beer
+    2300002: //RootNode
+    2300004: cap
+    3300000: beer
+    3300002: //RootNode
+    3300004: cap
+    4300000: bottle
+    4300002: cap
+    4300004: beer
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -47,7 +54,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 10
     meshCompression: 0
     addColliders: 0
     importVisibility: 1

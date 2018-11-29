@@ -50,11 +50,30 @@ public class SmoothCamera : MonoBehaviour {
 
     private Quaternion AverageRotations(Quaternion avrg, Queue<Quaternion> queueRotations)
     {
+        Quaternion lastRotation = new Quaternion();
+        //Quaternion diffRotation;
+
+        if (avrg == new Quaternion()) avrg = queueRotations.Peek();
+
         foreach (Quaternion singleRotation in queueRotations)
         {
-            if (avrg == new Quaternion()) avrg = singleRotation;
-            avrg = Quaternion.Lerp(avrg, singleRotation, 0.7f);
-            //avrg = Quaternion.Lerp(avrg, singleRotation, 0.5f);
+            avrg = Quaternion.Lerp(avrg, singleRotation, 0.5f);
+
+            //if (lastRotation != new Quaternion())
+            //{
+            //    Quaternion nextAvrg = new Quaternion();
+            //    Queue<Quaternion> nextRotations = queueRotations;
+            //    nextRotations.Dequeue();
+
+            //    nextAvrg = AverageRotations(nextAvrg, nextRotations);
+            //    diffRotation = nextAvrg * Quaternion.Inverse(lastRotation);
+
+            //    Quaternion predictedRotation = diffRotation * singleRotation;
+            //    avrg = Quaternion.Lerp(avrg, predictedRotation, 0.5f);
+            //}
+
+
+            lastRotation = singleRotation;
         }
         return avrg;
     }
