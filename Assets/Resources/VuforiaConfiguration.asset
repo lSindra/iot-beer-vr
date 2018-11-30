@@ -15,9 +15,9 @@ MonoBehaviour:
     vuforiaLicenseKey: AW3CLcv/////AAABmWBDIAIl3kEzieCPc8JkYDKAgO3wO7lSz25cV6fqh1MJTQsJPFv5kLBy3CE7bnui6/ihnqRenUaGiNX0OwCUejxk0UGD4zM/YXB5YBEVeTFpwb4EJHxKyhX37ja0oMSJJKXHGT1lXupFOM9LrRV8scdB5Gmig6DRa6vizLed99jU9lEqddSqHLMe6Ugyx39tX6ug/xN5ftAWunPqH9QFVUpqnrBLBrP+al18Kc3FiMQITMvjtSpm3NsBtKksnX85lAq2DEImLFcNI3KZBrKJHJH7nLo3fzujv8+iLjIdurSGfxQH0jB0yNcJgfhaNqXMYoXLPyUcT1Ec/xiGnczSXaYi7AO6wZ/qdiAURJE84bf7
     ufoLicenseKey: QVlYUzRBYi8vLy8vQUFBQUtDSHN5aDRBT0V6SGk1K0VlOUc1cGxBM1JtR2J3NlVWWmFLTWNJVXZUZjAvblJoYUNlUFpZbFBnTm5Rd20wWjZFS3N4KzBqTEk5aUpLVzdFb2NPelNZRnI2UnpFMW81N0tRM0dCVHhXM0RLNWthRG4yaG1mQ05PYi9RR2Z4WHlZU1l3NXowRnFiSHo4bko0ckg4cThiaU5YQU1aK3V1bHJ6RlJ0MFkxYllPMXZiZmNEUmRXcU04RnZEMHcvUjFxUXYrTFQ3MklkNTloQmJTWnE5UzdyQUkyN0h6MXpoRXI1SWF5NnByeXNPNEpNNzVLRnF1OTFCb0IxWU1nZ3B4eE1Wb2JiZHBuRDBJTndTWnF0QWV4bGFpYVIzZnhjalp5WXFBSExjUkhGSUVZenFaVEVOaFpKbG5la3Vhc3hkZ0pyWjRMZ3VJNjE0ZWtwbW5kTnd4bDVhUjdKY2R3ajY5TUpIajUvMzNGWW1mY3o=
     delayedInitialization: 0
-    cameraDeviceModeSetting: -2
-    maxSimultaneousImageTargets: 2
-    maxSimultaneousObjectTargets: 2
+    cameraDeviceModeSetting: -1
+    maxSimultaneousImageTargets: 3
+    maxSimultaneousObjectTargets: 3
     useDelayedLoadingObjectTargets: 0
     cameraDirection: 0
     mirrorVideoBackground: 0
@@ -29,8 +29,8 @@ MonoBehaviour:
     eyewearType: 2
     stereoFramework: 0
     seeThroughConfiguration: 0
-    viewerName: Generic Cardboard
-    viewerManufacturer: Vuforia
+    viewerName: VR Goggles
+    viewerManufacturer: Merge
     useCustomViewer: 0
     customViewer:
       Version: 0
@@ -52,14 +52,14 @@ MonoBehaviour:
     matteShader: {fileID: 4800000, guid: 66d0d78a3000021448b598bb54a3bfdf, type: 3}
     videoBackgroundEnabled: 0
   deviceTracker:
-    autoInitTracker: 0
-    autoStartTracker: 0
+    autoInitTracker: 1
+    autoStartTracker: 1
     trackingMode: 1
     posePrediction: 0
     modelCorrectionMode: 0
     modelTransformEnabled: 0
     modelTransform: {x: 0, y: 0.1, z: -0.1}
-    fusionMode: 7
+    fusionMode: 5
   smartTerrain:
     autoInitTracker: 0
     autoStartTracker: 0

@@ -4,18 +4,53 @@ using UnityEngine.SceneManagement;
 
 public class LoadSceneAsyncOperation : MonoBehaviour
 {
+    public static LoadSceneAsyncOperation instance = null;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
+    }
+
     public IEnumerator LoadAsync(string sceneName)
     {
         yield return null;
 
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
-        asyncOperation.allowSceneActivation = false;
+        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(sceneName);
+        loadOperation.allowSceneActivation = false;
 
-        while (!asyncOperation.isDone)
+        while (!loadOperation.isDone)
         {
-            if (asyncOperation.progress >= 0.9f)
+            if (loadOperation.progress >= 0.9f)
             {
-                asyncOperation.allowSceneActivation = true;
+                StartCoroutine(UnLoadAsyncThenFinishLoading(loadOperation));
+            }
+            yield return null;
+        }
+    }
+
+    public IEnumerator UnLoadAsyncThenFinishLoading(AsyncOperation loadOperation)
+    {
+        yield return null;
+
+        AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
+
+        unloadOperation.allowSceneActivation = false;
+
+        while (!unloadOperation.isDone)
+        {
+            if (unloadOperation.progress >= 0.9f)
+            {
+                loadOperation.allowSceneActivation = true;
+                unloadOperation.allowSceneActivation = true;
             }
             yield return null;
         }

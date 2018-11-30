@@ -1,20 +1,36 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using KetosGames.SceneTransition;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class HeadSetController : MonoBehaviour {
-    public FadeInAndOut fader;
+public class HeadSetController : MonoBehaviour
+{
+    void Start()
+    {
+    }
 
-	void Update () {
-        //Touch
-        if(OVRInput.Get(OVRInput.Button.One))
+    void Update()
+    {
+        if (!OVRPlugin.userPresent)
         {
-            SendMessage("SelectCountry");
+            RecenterPose();
         }
-        //Back button
         if (OVRInput.Get(OVRInput.Button.Two))
         {
-            fader.FadeOpaque();
-            LoadSceneAsyncOperation sceneAsyncOperation = new LoadSceneAsyncOperation();
-            StartCoroutine(sceneAsyncOperation.LoadAsync("mainLevel"));
+            BackToStart();
         }
+    }
+
+    private void BackToStart()
+    {
+        if (SceneManager.GetActiveScene().name != "mainLevel")
+        {
+            SceneLoader.LoadScene("mainLevel");
+        }
+    }
+
+    private void RecenterPose()
+    {
+        SceneLoader.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

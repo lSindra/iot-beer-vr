@@ -5,35 +5,37 @@ using UnityEngine.EventSystems;
 public class CopyToggleColorForShader : MonoBehaviour {
 
     public Material defaultMaterial;
+    public Material highlightMaterial;
     public Toggle toggle;
     public GameObject thisObject;
 
-    Material material;
-
 	void Start () {
-        material = new Material(defaultMaterial);
-        thisObject.GetComponent<MeshRenderer>().material = material;
+        thisObject.GetComponent<MeshRenderer>().material = defaultMaterial;
 
         EventTrigger eventTrigger = toggle.gameObject.AddComponent<EventTrigger>();
 
-        EventTrigger.Entry enterEntry = new EventTrigger.Entry();
-        enterEntry.eventID = EventTriggerType.PointerEnter;
-        enterEntry.callback.AddListener((data) => { EnterColor(); });
+        EventTrigger.Entry enterEntry = new EventTrigger.Entry
+        {
+            eventID = EventTriggerType.PointerEnter
+        };
+        enterEntry.callback.AddListener((data) => { HightlightMaterial(); });
 
-        EventTrigger.Entry exitEntry = new EventTrigger.Entry();
-        exitEntry.eventID = EventTriggerType.PointerExit;
-        exitEntry.callback.AddListener((data) => { ExitColor(); });
+        EventTrigger.Entry exitEntry = new EventTrigger.Entry
+        {
+            eventID = EventTriggerType.PointerExit
+        };
+        exitEntry.callback.AddListener((data) => { DefaultMaterial(); });
 
         eventTrigger.triggers.Add(enterEntry);
         eventTrigger.triggers.Add(exitEntry);
     }
 
-    protected void EnterColor() {
-        material.color = toggle.colors.highlightedColor;
+    protected void HightlightMaterial() {
+        thisObject.GetComponent<MeshRenderer>().material = highlightMaterial;
     }
 
-    protected void ExitColor()
+    protected void DefaultMaterial()
     {
-        material.color = defaultMaterial.color;
+        thisObject.GetComponent<MeshRenderer>().material = defaultMaterial;
     }
 }

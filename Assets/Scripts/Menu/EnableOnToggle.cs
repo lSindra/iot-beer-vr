@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 public class EnableOnToggle : MonoBehaviour {
 
-    public Behaviour component;
+    public Renderer component;
     public Toggle toggle;
 
 	void Start () {
