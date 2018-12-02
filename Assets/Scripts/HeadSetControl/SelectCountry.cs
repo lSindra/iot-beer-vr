@@ -1,24 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
 using KetosGames.SceneTransition;
+using VRStandardAssets.Utils;
 
 public class SelectCountry : MonoBehaviour
 {
-    public Toggle toggle;
     public AudioSource audioEffect;
     public string countryName;
     public Transform controllerPosition;
 
     private CountryNavigation navigation;
+    private VRInteractiveItem trigger;
 
     void Start()
     {
+        trigger = GetComponent<VRInteractiveItem>();
         navigation = new CountryNavigation();
-        toggle.onValueChanged.AddListener(ToggleEffect);
+
+        trigger.OnClick += ToggleEffect;
     }
 
-    void ToggleEffect(bool isOn)
+    void ToggleEffect()
     {
         audioEffect.PlayOneShot(audioEffect.clip);
 

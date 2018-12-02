@@ -34,6 +34,14 @@ namespace VRStandardAssets.Utils
         private void Update()
         {
             EyeRaycast();
+
+            if (OVRInput.Get(OVRInput.Button.One))
+            {
+                HandleClick();
+                HandleDown();
+            } else {
+                HandleUp();
+            }
         }
 
       

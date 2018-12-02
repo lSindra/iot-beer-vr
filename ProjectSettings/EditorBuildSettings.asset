@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Countries/USA.unity
     guid: c4349acba4ebe4047abe0fad640a1ced
+  - enabled: 1
+    path: Assets/Scenes/LoadingLevel.unity
+    guid: a3f87ead8e380db49b0b4f50cfb95290
   m_configObjects: {}
