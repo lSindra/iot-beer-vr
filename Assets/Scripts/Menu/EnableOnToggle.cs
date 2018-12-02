@@ -1,25 +1,14 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
+using VRStandardAssets.Utils;
 
 public class EnableOnToggle : MonoBehaviour {
 
     public Renderer component;
-    public Toggle toggle;
+    public VRInteractiveItem trigger;
 
 	void Start () {
-        EventTrigger eventTrigger = toggle.gameObject.AddComponent<EventTrigger>();
-
-        EventTrigger.Entry enterEntry = new EventTrigger.Entry();
-        enterEntry.eventID = EventTriggerType.PointerEnter;
-        enterEntry.callback.AddListener((data) => { Enable(); });
-
-        EventTrigger.Entry exitEntry = new EventTrigger.Entry();
-        exitEntry.eventID = EventTriggerType.PointerExit;
-        exitEntry.callback.AddListener((data) => { Disable(); });
-
-        eventTrigger.triggers.Add(enterEntry);
-        eventTrigger.triggers.Add(exitEntry);
+        trigger.OnOver += Enable;
+        trigger.OnOut += Disable;
     }
 
     protected void Enable() {

@@ -1,126 +1,186 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Collections;
 using Vuforia;
 using InputTracking = UnityEngine.XR.InputTracking;
 using Node = UnityEngine.XR.XRNode;
 
-[RequireComponent(typeof (VuforiaBehaviour))]
-public class SmoothCamera : MonoBehaviour {
-
-	public int smoothingFrames = 3;
+[RequireComponent(typeof(VuforiaBehaviour))]
+public class SmoothCamera : MonoBehaviour
+{
+    public int smoothingFrames = 10;
+    public int vuforiaDelay = 7;
+    public int bufferSize = 1;
     public bool smoothPosition = true;
     public bool smoothRotation = true;
 
-	private VuforiaBehaviour qcarBehavior;
-    private Quaternion smoothedRotation;
-	private Vector3 smoothedPosition;
-	private Queue<Quaternion> rotations;
-	private Queue<Vector3> positions;
+    VuforiaBehaviour qcarBehavior;
+    Queue<Quaternion> vuforiaRotations;
+    Queue<Vector3> vuforiaPositions;
+    Queue<Quaternion> buffer;
 
-	public void OnTrackablesUpdated()
+    Quaternion smoothedVuforiaRotation;
+    Vector3 smoothedVuforiaPosition;
+
+    Queue<Quaternion> gearRotations;
+    Quaternion lastGearFrame;
+    Quaternion smoothedGearRotation;
+
+    void Start()
     {
-        RemoveOldestFrame();
-        AddNewestFrame();
+        vuforiaRotations = new Queue<Quaternion>(smoothingFrames);
+        vuforiaPositions = new Queue<Vector3>(smoothingFrames);
+        gearRotations = new Queue<Quaternion>(vuforiaDelay + bufferSize);
+        buffer = new Queue<Quaternion>(bufferSize);
 
-        smoothedRotation = GetAverageFromRotations();
-        smoothedPosition = GetAverageFromPositions();
-    }
-
-    private Vector3 GetAverageFromPositions()
-    {
-        Vector3 avgp = Vector3.zero;
-        foreach (Vector3 singlePosition in positions)
-        {
-            avgp += singlePosition;
-        }
-        avgp /= positions.Count;
-        return avgp;
-    }
-
-    private Quaternion GetAverageFromRotations()
-    {
-        Quaternion avgr = new Quaternion();
-
-        avgr = AverageRotations(avgr, rotations);
-        avgr = AverageRotations(avgr, new Queue<Quaternion>(new[] { InputTracking.GetLocalRotation(Node.CenterEye) }));
-
-        return avgr;
-    }
-
-    private Quaternion AverageRotations(Quaternion avrg, Queue<Quaternion> queueRotations)
-    {
-        Quaternion lastRotation = new Quaternion();
-        //Quaternion diffRotation;
-
-        if (avrg == new Quaternion()) avrg = queueRotations.Peek();
-
-        foreach (Quaternion singleRotation in queueRotations)
-        {
-            avrg = Quaternion.Lerp(avrg, singleRotation, 0.5f);
-
-            //if (lastRotation != new Quaternion())
-            //{
-            //    Quaternion nextAvrg = new Quaternion();
-            //    Queue<Quaternion> nextRotations = queueRotations;
-            //    nextRotations.Dequeue();
-
-            //    nextAvrg = AverageRotations(nextAvrg, nextRotations);
-            //    diffRotation = nextAvrg * Quaternion.Inverse(lastRotation);
-
-            //    Quaternion predictedRotation = diffRotation * singleRotation;
-            //    avrg = Quaternion.Lerp(avrg, predictedRotation, 0.5f);
-            //}
-
-
-            lastRotation = singleRotation;
-        }
-        return avrg;
-    }
-
-    private void AddNewestFrame()
-    {
-        rotations.Enqueue(transform.rotation);
-        positions.Enqueue(transform.position);
-    }
-
-    private void RemoveOldestFrame()
-    {
-        if (rotations.Count >= smoothingFrames)
-        {
-            rotations.Dequeue();
-            positions.Dequeue();
-        }
-
-    }
-
-    void Start () {
-
-		rotations = new Queue<Quaternion>(smoothingFrames);
-		positions = new Queue<Vector3>(smoothingFrames);
         qcarBehavior = GetComponent<VuforiaBehaviour>();
+        VuforiaARController vuforia = VuforiaARController.Instance;
 
-		VuforiaARController vuforia = VuforiaARController.Instance;
+        vuforia.RegisterVuforiaStartedCallback(OnInitialized);
+        vuforia.RegisterTrackablesUpdatedCallback(OnTrackablesUpdated);
+    }
 
-		vuforia.RegisterVuforiaStartedCallback(OnInitialized);
-		vuforia.RegisterTrackablesUpdatedCallback (OnTrackablesUpdated);
-	}
-
-    private void OnInitialized()
-    {}
-
-    void LateUpdate () {
+    void LateUpdate()
+    {
         if (smoothRotation)
         {
-            transform.rotation = smoothedRotation;
+            transform.rotation = smoothedVuforiaRotation * smoothedGearRotation;
         }
         else
         {
             transform.rotation = InputTracking.GetLocalRotation(Node.CenterEye);
         }
 
-        if (smoothPosition) {
-            transform.position = smoothedPosition;
+        if (smoothPosition)
+        {
+            transform.position = smoothedVuforiaPosition;
         }
-	}
+    }
+
+    public void OnTrackablesUpdated()
+    {
+        UpdateVuforiaTrackable();
+        UpdateVuforiaAverage();
+
+        UpdateGearTrackableDiff();
+        UpdateGearAverage();
+    }
+
+    void UpdateVuforiaAverage()
+    {
+        smoothedVuforiaRotation = GetAverageFromRotations();
+        smoothedVuforiaPosition = GetAverageFromPositions();
+    }
+
+    void UpdateGearAverage()
+    {
+        smoothedGearRotation = GetSumFromRotations(gearRotations);
+    }
+
+    Vector3 GetAverageFromPositions()
+    {
+        Vector3 avgp = Vector3.zero;
+        foreach (Vector3 singlePosition in vuforiaPositions)
+        {
+            avgp += singlePosition;
+        }
+        avgp /= vuforiaPositions.Count;
+        return avgp;
+    }
+
+    Quaternion GetAverageFromRotations()
+    {
+        Quaternion avgr = new Quaternion();
+
+        avgr = AverageRotations(avgr, vuforiaRotations);
+
+        return avgr;
+    }
+
+    private Quaternion AverageRotations(Quaternion avrg, Queue<Quaternion> queueRotations)
+    {
+        if (avrg == new Quaternion()) avrg = queueRotations.Peek();
+
+        foreach (Quaternion singleRotation in queueRotations)
+        {
+            avrg = Quaternion.Lerp(avrg, singleRotation, 0.5f);
+        }
+        return avrg;
+    }
+
+    Quaternion GetSumFromRotations(Queue<Quaternion> queueRotations)
+    {
+        Quaternion sum = new Quaternion();
+        bool first = true;
+
+        foreach (Quaternion singleRotation in queueRotations)
+        {
+            if (first)
+            {
+                sum = singleRotation;
+                first = false;
+            }
+            else
+            {
+                sum *= singleRotation;
+            }
+        }
+        return sum;
+    }
+
+    void UpdateVuforiaTrackable()
+    {
+        RemoveOldestVuforiaFrame();
+        AddNewestVuforiaFrame();
+    }
+
+    void AddNewestVuforiaFrame()
+    {
+        buffer.Enqueue(transform.rotation);
+
+        if (buffer.Count >= bufferSize)
+        {
+            vuforiaRotations.Enqueue(buffer.Peek());
+            buffer.Dequeue();
+        } else
+        {
+            vuforiaRotations.Enqueue(transform.rotation);
+        }
+
+        vuforiaPositions.Enqueue(transform.position);
+    }
+
+    void RemoveOldestVuforiaFrame()
+    {
+        if (vuforiaRotations.Count >= smoothingFrames)
+        {
+            vuforiaRotations.Dequeue();
+            vuforiaPositions.Dequeue();
+        }
+    }
+
+    void UpdateGearTrackableDiff()
+    {
+        RemoveOldestGearDiff();
+        AddNewestGearDiff();
+    }
+
+    void AddNewestGearDiff()
+    {
+        Quaternion gearDiffMovement = InputTracking.GetLocalRotation(Node.CenterEye) * Quaternion.Inverse(lastGearFrame);
+
+        gearRotations.Enqueue(gearDiffMovement);
+
+        lastGearFrame = InputTracking.GetLocalRotation(Node.CenterEye);
+    }
+
+    void RemoveOldestGearDiff()
+    {
+        if (gearRotations.Count >= vuforiaDelay + bufferSize)
+        {
+            gearRotations.Dequeue();
+        }
+    }
+
+    public void OnInitialized()
+    {}
 }
