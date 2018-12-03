@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1.88
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 1589ca9e3401345f4a0789cac24b39e1, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 965d3d70244a940f393266c337425fba, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 90298890}
-  m_IndirectSpecularColor: {r: 0.28801036, g: 0.23375937, b: 0.34686625, a: 1}
+  m_IndirectSpecularColor: {r: 0.5881096, g: 0.5934219, b: 0.61198795, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -147,7 +147,7 @@ Light:
     m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 0.173
+    m_Strength: 0.539
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -561,6 +561,11 @@ Prefab:
       propertyPath: m_Name
       value: Lamp (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 122461223567684198, guid: bcc63ef9825d3449189886fdb1f15394,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcc63ef9825d3449189886fdb1f15394, type: 2}
   m_IsPrefabAsset: 0
@@ -919,6 +924,11 @@ Prefab:
       propertyPath: m_Name
       value: Lamp (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 122461223567684198, guid: bcc63ef9825d3449189886fdb1f15394,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcc63ef9825d3449189886fdb1f15394, type: 2}
   m_IsPrefabAsset: 0
@@ -1114,6 +1124,11 @@ Prefab:
       propertyPath: m_Name
       value: Lamp (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 122461223567684198, guid: bcc63ef9825d3449189886fdb1f15394,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcc63ef9825d3449189886fdb1f15394, type: 2}
   m_IsPrefabAsset: 0
@@ -1189,6 +1204,11 @@ Prefab:
     - target: {fileID: 4801456447173596, guid: bcc63ef9825d3449189886fdb1f15394, type: 2}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 122461223567684198, guid: bcc63ef9825d3449189886fdb1f15394,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcc63ef9825d3449189886fdb1f15394, type: 2}
@@ -1560,6 +1580,11 @@ Prefab:
       propertyPath: m_Name
       value: Lamp (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 122461223567684198, guid: bcc63ef9825d3449189886fdb1f15394,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcc63ef9825d3449189886fdb1f15394, type: 2}
   m_IsPrefabAsset: 0
@@ -1623,7 +1648,7 @@ Prefab:
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: a3b1457832d76654eae613a68fbc8aef, type: 2}
+      objectReference: {fileID: 2100000, guid: 154945ad327a8074e9f7b4abfca72f13, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99687c5f5b7b7fc47b072294a2888938, type: 2}
   m_IsPrefabAsset: 0
@@ -1858,6 +1883,11 @@ Prefab:
     - target: {fileID: 1123746425255126, guid: bcc63ef9825d3449189886fdb1f15394, type: 2}
       propertyPath: m_Name
       value: Lamp (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 122461223567684198, guid: bcc63ef9825d3449189886fdb1f15394,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcc63ef9825d3449189886fdb1f15394, type: 2}
