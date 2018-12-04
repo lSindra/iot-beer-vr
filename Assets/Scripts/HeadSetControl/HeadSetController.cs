@@ -1,19 +1,22 @@
-﻿using System.Collections;
+﻿using System;
 using KetosGames.SceneTransition;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class HeadSetController : MonoBehaviour
 {
+    public string mainScene = "mainLevel";
+
     void Start()
     {
+        GlobalCountDown.StartCountDown(TimeSpan.FromSeconds(120));
     }
 
     void Update()
     {
         if (!OVRPlugin.userPresent)
         {
-            RecenterPose();
+            RestartGame();
         }
         if (OVRInput.Get(OVRInput.Button.Two))
         {
@@ -23,14 +26,15 @@ public class HeadSetController : MonoBehaviour
 
     private void BackToStart()
     {
-        if (SceneManager.GetActiveScene().name != "mainLevel")
+        if (SceneManager.GetActiveScene().name != mainScene)
         {
-            SceneLoader.LoadScene("mainLevel");
+            SceneLoader.LoadScene(mainScene);
         }
     }
 
-    private void RecenterPose()
+    private void RestartGame()
     {
-        SceneLoader.LoadScene(SceneManager.GetActiveScene().name);
+        SceneLoader.LoadScene(mainScene);
+
     }
 }

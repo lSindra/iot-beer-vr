@@ -17,6 +17,8 @@ using Vuforia;
 /// </summary>
 public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 {
+    public bool KeepExtended = false;
+
     #region PROTECTED_MEMBER_VARIABLES
 
     protected TrackableBehaviour mTrackableBehaviour;
@@ -56,11 +58,23 @@ public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandle
         m_NewStatus = newStatus;
 
         if (newStatus == TrackableBehaviour.Status.DETECTED ||
-            newStatus == TrackableBehaviour.Status.TRACKED ||
-            newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
+            newStatus == TrackableBehaviour.Status.TRACKED)
         {
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
             OnTrackingFound();
+        }
+        else if (newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
+        {
+            if (KeepExtended)
+            {
+                Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
+                OnTrackingFound();
+            }
+            else
+            {
+                Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " lost");
+                OnTrackingLost();
+            }
         }
         else if (previousStatus == TrackableBehaviour.Status.TRACKED &&
                  newStatus == TrackableBehaviour.Status.NO_POSE)
