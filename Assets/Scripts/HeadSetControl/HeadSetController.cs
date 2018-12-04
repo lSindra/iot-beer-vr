@@ -6,10 +6,11 @@ using UnityEngine.SceneManagement;
 public class HeadSetController : MonoBehaviour
 {
     public string mainScene = "mainLevel";
+    public int gameTime = 120;
 
     void Start()
     {
-        GlobalCountDown.StartCountDown(TimeSpan.FromSeconds(120));
+        GlobalCountDown.StartCountDown(TimeSpan.FromSeconds(gameTime));
     }
 
     void Update()
@@ -35,6 +36,6 @@ public class HeadSetController : MonoBehaviour
     private void RestartGame()
     {
         SceneLoader.LoadScene(mainScene);
-
+        GlobalCountDown.RestartCountDown(TimeSpan.FromSeconds(gameTime));
     }
 }
