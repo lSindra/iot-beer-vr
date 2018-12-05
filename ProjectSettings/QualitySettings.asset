@@ -10,10 +10,10 @@ QualitySettings:
     name: Very High
     pixelLightCount: 1
     shadows: 1
-    shadowResolution: 2
+    shadowResolution: 1
     shadowProjection: 0
     shadowCascades: 4
-    shadowDistance: 12.65
+    shadowDistance: 12.5
     shadowNearPlaneOffset: 3
     shadowCascade2Split: 0.33333334
     shadowCascade4Split: {x: 0.05299821, y: 0.15828918, z: 0.32239833}

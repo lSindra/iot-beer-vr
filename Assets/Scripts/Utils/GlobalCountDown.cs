@@ -31,14 +31,4 @@ public static class GlobalCountDown
             return result.TotalSeconds <= 0 ? TimeSpan.Zero : result;
         }
     }
-
-    //public static DateTime CurrentDateTime
-    //{
-    //    get
-    //    {
-    //        TimeSpan span = TimeStarted - DateTime.UtcNow;
-    //        DateTime result = DateTime.UtcNow - TimeStarted;
-    //        return result.CompareTo(DateTime.Zero) ? DateTime.Zero : result;
-    //    }
-    //}
 }

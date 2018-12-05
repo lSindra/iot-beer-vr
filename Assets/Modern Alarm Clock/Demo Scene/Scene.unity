@@ -413,7 +413,7 @@ Prefab:
     - target: {fileID: 114548865931378878, guid: 62fe3dab53300374bbfa8f1b9896187c,
         type: 2}
       propertyPath: CountDownTime
-      value: 120
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62fe3dab53300374bbfa8f1b9896187c, type: 2}

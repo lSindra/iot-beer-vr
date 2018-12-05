@@ -72,24 +72,19 @@ public class AlarmClock : MonoBehaviour {
     {
         if (CountDown)
         {
+            if (GlobalCountDown.TimeLeft <= TimeSpan.Zero)
+            {
+                ClockIsActive = false;
+                ActivateAlarm();
+                _time = new DateTime(0);
+            }
             if (ClockIsActive)
             {
-                if (AlarmText)
-                {
-                    AlarmText.text = _time.ToString(Format);
-                }
-
-                //if an alarm has been set
-                if (_alarm <= DateTime.MinValue)
-                {
-                    if (_time.Hour == _alarm.Hour
-                        && _time.Minute == _alarm.Minute
-                        && _time.Second == _alarm.Second)
-                    {
-                        ActivateAlarm();
-                        ClockIsActive = false;
-                    }
-                }
+                _time = _time.AddSeconds(-1);
+            }
+            if (AlarmText)
+            {
+                AlarmText.text = _time.ToString(Format);
             }
         }
         else

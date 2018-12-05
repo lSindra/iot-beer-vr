@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using KetosGames.SceneTransition;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class HeadSetController : MonoBehaviour
 {
     public string mainScene = "mainLevel";
+    public string ibsoScene = "IBSO";
     public int gameTime = 120;
 
     void Start()
@@ -23,6 +25,10 @@ public class HeadSetController : MonoBehaviour
         {
             BackToStart();
         }
+        if (GlobalCountDown.TimeLeft <= TimeSpan.Zero)
+        {
+            StartCoroutine(WaitThenLoadIBSO());
+        }
     }
 
     private void BackToStart()
@@ -37,5 +43,14 @@ public class HeadSetController : MonoBehaviour
     {
         SceneLoader.LoadScene(mainScene);
         GlobalCountDown.RestartCountDown(TimeSpan.FromSeconds(gameTime));
+    }
+
+    private IEnumerator WaitThenLoadIBSO() {
+        yield return new WaitForSeconds(3);
+        if (SceneManager.GetActiveScene().name != ibsoScene)
+        {
+            SceneLoader.LoadScene(ibsoScene);
+        }
+        yield return null;
     }
 }

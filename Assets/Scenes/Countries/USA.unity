@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 90298890}
-  m_IndirectSpecularColor: {r: 0.28801036, g: 0.23375937, b: 0.34686625, a: 1}
+  m_IndirectSpecularColor: {r: 0.29035318, g: 0.23616213, b: 0.34822536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -907,7 +907,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4801456447173596, guid: bcc63ef9825d3449189886fdb1f15394,
     type: 2}
   m_PrefabInternal: {fileID: 743700148}
---- !u!21 &823532044
+--- !u!21 &1017526639
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -915,7 +915,7 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: 'Alterra_Postcard_2Material
 
-    -724476'
+    -888464'
   m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -1184,12 +1184,12 @@ Prefab:
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 823532044}
+      objectReference: {fileID: 1017526639}
     - target: {fileID: 23815597032547782, guid: f2521619f6f314b62937df787482b1cd,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: d023d8e7e14ac4929884170ddab217c2, type: 2}
+      objectReference: {fileID: 2100000, guid: 8c9fe93e91abd4ae687d0af14d36cf1d, type: 2}
     - target: {fileID: 114801834533202370, guid: f2521619f6f314b62937df787482b1cd,
         type: 2}
       propertyPath: playerCamera
@@ -1200,6 +1200,16 @@ Prefab:
       propertyPath: child
       value: 
       objectReference: {fileID: 395357241}
+    - target: {fileID: 23796416011105232, guid: f2521619f6f314b62937df787482b1cd,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0e904f054ae7f42dfa988ce03fd6fac5, type: 2}
+    - target: {fileID: 23534930108590878, guid: f2521619f6f314b62937df787482b1cd,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7038aa04aed224070a0f25329ac788a0, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2521619f6f314b62937df787482b1cd, type: 2}
   m_IsPrefabAsset: 0
@@ -1373,6 +1383,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 23375763918511536, guid: 33419feae25f7468aa0ff9934c4f92b5,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c8b7bad71a7a945e5b72ada775c934e4, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33419feae25f7468aa0ff9934c4f92b5, type: 2}
   m_IsPrefabAsset: 0
