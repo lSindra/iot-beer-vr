@@ -157,7 +157,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 9776d9cc9898348519d5d4cbc86324a6, type: 2}
+  - {fileID: 2100000, guid: 8fee61016b35349228b5a38194c667e8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -192,7 +192,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 6e84cc2ca2070468e81f9a3efb1cdff4, type: 2}
+  - {fileID: 2100000, guid: 44c94125e83804747be48faa456084b3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -227,7 +227,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d023d8e7e14ac4929884170ddab217c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -370,6 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a917f0af64a6423093132dab321c15f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  KeepExtended: 0
 --- !u!114 &114454839984533654
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -393,14 +394,14 @@ MonoBehaviour:
   m_Script: {fileID: -1631628248, guid: bab6fa851cf5a1a4bba3cec5f191cb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mTrackableName: Alterra_Postcard_2
+  mTrackableName: collage2
   mPreserveChildSize: 0
   mInitializedInEditor: 1
   mDataSetPath: Vuforia/first-try.xml
-  mAspectRatio: 0.7506667
+  mAspectRatio: 0.76595664
   mImageTargetType: 0
   mWidth: 0.19
-  mHeight: 0.14262667
+  mHeight: 0.14553176
 --- !u!114 &114801834533202370
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -412,6 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3068dafd939fa4a3099ac1831874c7cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  child: {fileID: 4838903796258910}
   text: {fileID: 4429258290924066}
   playerCamera: {fileID: 0}
   textShift: 15

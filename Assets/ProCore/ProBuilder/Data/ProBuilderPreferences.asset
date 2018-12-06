@@ -25,21 +25,24 @@ MonoBehaviour:
   - pbDefaultSelectionMode
   - pb_GIWorkflowMode
   - pbHandleAlignment
+  - pbEdgeSubdivisions
   m_Float_keys:
   - pbEditorScroll.x
   - pbEditorScroll.y
   - pb_SmoothingGroupEditor::m_NormalsSize
   - pb_SmoothingGroupEditor::m_PreviewOpacity
+  - pbBevelAmount
   m_String_keys: []
   m_Color_keys: []
   m_Material_keys: []
   m_Bool_values: 0001010101000101
-  m_Int_values: 00000000020000000000000000000000
+  m_Int_values: 0100000001000000010000000000000013000000
   m_Float_values:
   - 0
   - 0
   - 0.001
   - 0.001
+  - 0.020879406
   m_String_values: []
   m_Color_values: []
   m_Material_values: []

@@ -105,7 +105,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1924394425418082}
   m_LocalRotation: {x: 0.27059805, y: 0.6532815, z: 0.6532815, w: -0.27059805}
-  m_LocalPosition: {x: 0.5, y: -0.012, z: 0.498}
+  m_LocalPosition: {x: 0.367, y: -0.012, z: 0.367}
   m_LocalScale: {x: 0.885, y: 0.885, z: 0.88}
   m_Children:
   - {fileID: 4657340166544210}
@@ -348,6 +348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a917f0af64a6423093132dab321c15f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  KeepExtended: 0
 --- !u!114 &114441756818872274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -371,7 +372,7 @@ MonoBehaviour:
   m_Script: {fileID: -780924145, guid: bab6fa851cf5a1a4bba3cec5f191cb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mTrackableName: bottle
+  mTrackableName: bottlenew
   mPreserveChildSize: 0
   mInitializedInEditor: 1
   mDataSetPath: Vuforia/first-try_OT.xml
@@ -380,7 +381,7 @@ MonoBehaviour:
   mShowBoundingBox: 1
   mBBoxMin: {x: 0, y: 0, z: 0}
   mBBoxMax: {x: 0.1, y: 0.1, z: 0.1}
-  mPreviewImage: {fileID: 2800000, guid: 5b25981bf8f64c669b3069a330f35530, type: 3}
+  mPreviewImage: {fileID: 2800000, guid: 176c8f0e096c4c1ca1ff4eb74785188c, type: 3}
   mLength: 0.1
   mWidth: 0.1
   mHeight: 0.1

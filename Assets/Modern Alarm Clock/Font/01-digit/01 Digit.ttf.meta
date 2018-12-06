@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: c37f779989117ea41a0352893f131c0d
+timeCreated: 1501530686
+licenseType: Store
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: 01 Digit
+  fontNames:
+  - 01 Digit
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
