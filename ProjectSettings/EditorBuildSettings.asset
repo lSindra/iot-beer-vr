@@ -9,24 +9,24 @@ EditorBuildSettings:
     path: Assets/Scenes/mainLevel.unity
     guid: 93ca6b1d586864b9ba088e302f231b0b
   - enabled: 1
-    path: Assets/Scenes/LoadingLevel.unity
-    guid: a3f87ead8e380db49b0b4f50cfb95290
-  - enabled: 1
-    path: Assets/Scenes/Countries/USA.unity
-    guid: c4349acba4ebe4047abe0fad640a1ced
-  - enabled: 0
-    path: Assets/Scenes/Countries/India.unity
-    guid: 222970bde2d6d4b96b0f7199d34dcfc9
-  - enabled: 0
-    path: Assets/Scenes/Countries/Belgium.unity
-    guid: 15697f88e74e8495b88c1088ebf19201
-  - enabled: 0
-    path: Assets/Scenes/Countries/Germany.unity
-    guid: 24ce4442348da431b8b671028515e685
-  - enabled: 1
     path: Assets/Scenes/Countries/IBSO.unity
     guid: f974196d188a6480c89dac83a1ed34d8
   - enabled: 1
     path: Assets/Scenes/Countries/Australia.unity
     guid: 67b1e76e4a2c44dde8a4c91bf349b8bc
+  - enabled: 1
+    path: Assets/Scenes/Countries/Belgium.unity
+    guid: 15697f88e74e8495b88c1088ebf19201
+  - enabled: 1
+    path: Assets/Scenes/Countries/Germany.unity
+    guid: 24ce4442348da431b8b671028515e685
+  - enabled: 1
+    path: Assets/Scenes/Countries/India.unity
+    guid: 222970bde2d6d4b96b0f7199d34dcfc9
+  - enabled: 1
+    path: Assets/Scenes/Countries/USA.unity
+    guid: c4349acba4ebe4047abe0fad640a1ced
+  - enabled: 1
+    path: Assets/Scenes/LoadingLevel.unity
+    guid: a3f87ead8e380db49b0b4f50cfb95290
   m_configObjects: {}
