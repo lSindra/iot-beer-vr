@@ -442,7 +442,7 @@ MonoBehaviour:
   StartTime: 11:59
   AlarmTime: 12:00
   Format: mm :ss
-  AlarmActive: 1
+  AlarmActive: 0
   CountDown: 1
   CountDownTime: 120
 --- !u!114 &114430640604734972

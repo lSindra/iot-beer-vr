@@ -24,7 +24,7 @@ public class SelectCountry : MonoBehaviour
     {
         audioEffect.PlayOneShot(audioEffect.clip);
 
-        DeleteControllers();
+        HeadSetController.SetActiveControllers(false);
 
         StartCoroutine(NavigateAndFade());
     }
@@ -36,14 +36,5 @@ public class SelectCountry : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         SceneLoader.LoadScene(countryName);
-    }
-
-    private void DeleteControllers()
-    {
-        GameObject[] controllers = GameObject.FindGameObjectsWithTag("GameController");
-        foreach (GameObject controller in controllers)
-        {
-            controller.SetActive(false);
-        }
     }
 }

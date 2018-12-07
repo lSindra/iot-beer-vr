@@ -1,44 +1,69 @@
 ﻿using UnityEngine;
 
-public class HeadSetRotationController : MonoBehaviour {
+public class HeadSetRotationController : MonoBehaviour
+{
 
     public Transform hmdOrientation;
-    public float minRotation = 0.15f;
+    public Transform worldTransform;
+    public float minRotation = 0.10f;
+    public float maxRotation = 0.45f;
     public float rotationSpeed = 3;
-	
-	void Update ()
+
+    float adjustedXRotation;
+    float adjustedYRotation;
+
+    void Update()
     {
-        UpdateZRotation();
         UpdateXRotation();
+        UpdateYRotation();
+
+        MoveSatelite();
     }
 
-    private void UpdateXRotation()
+    void MoveSatelite()
     {
-        float hmdXRotation = hmdOrientation.rotation.x;
-        Quaternion rotation = transform.rotation;
-
-        //transform.rotation = Quaternion.Slerp(rotation, new Quaternion(-25f, rotation.y, rotation.z, rotation.w), hmdXRotation);
-
-        //if (hmdXRotation > minRotation)
-        //{
-        //    transform.rotation = Quaternion.Slerp(rotation, new Quaternion(-25, rotation.y, rotation.z, rotation.w), hmdXRotation/180);
-        //}
-        //else if (hmdXRotation < -minRotation)
-        //{
-        //    transform.rotation = Quaternion.Lerp(rotation, new Quaternion(25, rotation.y, rotation.z, rotation.w), -hmdXRotation/180);
-        //}
+        print(transform.rotation.y);
+        if (transform.rotation.y < -0.75 || transform.rotation.y > 0.75) {
+            adjustedXRotation = -adjustedXRotation;
+        }
+        if (transform.rotation.x < 0.3 && adjustedXRotation < 0)
+        {
+            transform.RotateAround(worldTransform.position, worldTransform.right, -adjustedXRotation);
+        }
+        else if (transform.rotation.x > -0.3 && adjustedXRotation > 0)
+        {
+            transform.RotateAround(worldTransform.position, worldTransform.right, -adjustedXRotation);
+        }
+        transform.RotateAround(worldTransform.position, worldTransform.up, -adjustedYRotation);
     }
 
-    private void UpdateZRotation()
+    void UpdateXRotation()
     {
-        float hmdZRotation = hmdOrientation.rotation.z;
-        if (hmdZRotation > minRotation)
+        float hmdXRotation = hmdOrientation.localRotation.x;
+        adjustedXRotation = 0;
+        if (hmdXRotation > minRotation && hmdXRotation < maxRotation)
         {
-            this.transform.Rotate(new Vector3(0, rotationSpeed * -(hmdZRotation - minRotation), 0));
+            adjustedXRotation = rotationSpeed * (hmdXRotation - minRotation);
         }
-        else if (hmdZRotation < -minRotation)
+        else if (hmdXRotation < -minRotation && hmdXRotation > -maxRotation)
         {
-            this.transform.Rotate(new Vector3(0, rotationSpeed * -(hmdZRotation + minRotation), 0));
+            adjustedXRotation = rotationSpeed * (hmdXRotation + minRotation);
         }
+        adjustedXRotation *= 100 * Time.deltaTime;
+    }
+
+    void UpdateYRotation()
+    {
+        float hmdYRotation = hmdOrientation.localRotation.y;
+        adjustedYRotation = 0;
+        if (hmdYRotation > minRotation && hmdYRotation < maxRotation)
+        {
+            adjustedYRotation = rotationSpeed * (hmdYRotation - minRotation);
+        }
+        else if (hmdYRotation < -minRotation && hmdYRotation > -maxRotation)
+        {
+            adjustedYRotation = rotationSpeed * (hmdYRotation + minRotation);
+        }
+        adjustedYRotation *= 100 * Time.deltaTime;
     }
 }
