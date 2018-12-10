@@ -5,65 +5,47 @@ public class HeadSetRotationController : MonoBehaviour
 
     public Transform hmdOrientation;
     public Transform worldTransform;
+    public Transform desiredDirection;
     public float minRotation = 0.10f;
     public float maxRotation = 0.45f;
     public float rotationSpeed = 3;
 
-    float adjustedXRotation;
-    float adjustedYRotation;
+    private readonly float EPSILON = Mathf.Epsilon;
 
-    void Update()
+    void LateUpdate()
     {
-        UpdateXRotation();
-        UpdateYRotation();
-
         MoveSatelite();
     }
 
     void MoveSatelite()
     {
-        print(transform.rotation.y);
-        if (transform.rotation.y < -0.75 || transform.rotation.y > 0.75) {
-            adjustedXRotation = -adjustedXRotation;
-        }
-        if (transform.rotation.x < 0.3 && adjustedXRotation < 0)
+        if (Mathf.Abs(GetMoveUp()) > EPSILON)
         {
-            transform.RotateAround(worldTransform.position, worldTransform.right, -adjustedXRotation);
+            int height = 0;
+            if (GetMoveUp() > 0.05) height = 1;
+            if (GetMoveUp() < 0.05) height = -1;
+            transform.position = Vector3.Slerp(transform.position, new Vector3(transform.position.x, worldTransform.position.y + 450 * height, transform.position.z), Mathf.Abs(GetMoveUp()) * rotationSpeed * Time.deltaTime);
         }
-        else if (transform.rotation.x > -0.3 && adjustedXRotation > 0)
-        {
-            transform.RotateAround(worldTransform.position, worldTransform.right, -adjustedXRotation);
-        }
-        transform.RotateAround(worldTransform.position, worldTransform.up, -adjustedYRotation);
+        transform.RotateAround(worldTransform.position, worldTransform.up, rotationSpeed/5 * GetMoveRight());
     }
 
-    void UpdateXRotation()
+    private float GetMoveUp()
     {
-        float hmdXRotation = hmdOrientation.localRotation.x;
-        adjustedXRotation = 0;
-        if (hmdXRotation > minRotation && hmdXRotation < maxRotation)
-        {
-            adjustedXRotation = rotationSpeed * (hmdXRotation - minRotation);
-        }
-        else if (hmdXRotation < -minRotation && hmdXRotation > -maxRotation)
-        {
-            adjustedXRotation = rotationSpeed * (hmdXRotation + minRotation);
-        }
-        adjustedXRotation *= 100 * Time.deltaTime;
+        float moveUp = EPSILON;
+
+        if (hmdOrientation.localRotation.x < -minRotation) moveUp = -hmdOrientation.localRotation.x+minRotation;
+        if (hmdOrientation.localRotation.x > minRotation) moveUp = -hmdOrientation.localRotation.x-minRotation;
+        if (hmdOrientation.localRotation.x > maxRotation || hmdOrientation.localRotation.x < -maxRotation) moveUp = EPSILON;
+        return moveUp;
     }
 
-    void UpdateYRotation()
+    private float GetMoveRight()
     {
-        float hmdYRotation = hmdOrientation.localRotation.y;
-        adjustedYRotation = 0;
-        if (hmdYRotation > minRotation && hmdYRotation < maxRotation)
-        {
-            adjustedYRotation = rotationSpeed * (hmdYRotation - minRotation);
-        }
-        else if (hmdYRotation < -minRotation && hmdYRotation > -maxRotation)
-        {
-            adjustedYRotation = rotationSpeed * (hmdYRotation + minRotation);
-        }
-        adjustedYRotation *= 100 * Time.deltaTime;
+        float moveRight = 0;
+
+        if (hmdOrientation.localRotation.y < -minRotation) moveRight = -hmdOrientation.localRotation.y+minRotation;
+        if (hmdOrientation.localRotation.y > minRotation) moveRight = -hmdOrientation.localRotation.y-minRotation;
+        if (hmdOrientation.localRotation.y > maxRotation || hmdOrientation.localRotation.y < -maxRotation) moveRight = 0;
+        return moveRight;
     }
 }

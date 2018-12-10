@@ -31,6 +31,8 @@ public class SelectCountry : MonoBehaviour
 
     private IEnumerator NavigateAndFade()
     {
+        Physics.autoSimulation = false;
+
         StartCoroutine(navigation.NavigationIterator(controllerPosition, GetComponentInParent<Transform>()));
 
         yield return new WaitForSeconds(1);

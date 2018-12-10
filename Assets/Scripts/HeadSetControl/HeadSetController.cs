@@ -12,7 +12,7 @@ public class HeadSetController : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(StartActivateControllers());
+        //StartCoroutine(StartActivateControllers());
         GlobalCountDown.StartCountDown(TimeSpan.FromSeconds(gameTime));
     }
 
