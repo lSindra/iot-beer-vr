@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using KetosGames.SceneTransition;
+//using KetosGames.SceneTransition;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -56,13 +56,13 @@ public class HeadSetController : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name != mainScene)
         {
-            SceneLoader.LoadScene(mainScene);
+            //SceneLoader.LoadScene(mainScene);
         }
     }
 
     private void RestartGame()
     {
-        SceneLoader.LoadScene(mainScene);
+        //SceneLoader.LoadScene(mainScene);
         GlobalCountDown.RestartCountDown(TimeSpan.FromSeconds(gameTime));
     }
 
@@ -70,7 +70,7 @@ public class HeadSetController : MonoBehaviour
         yield return new WaitForSeconds(3);
         if (SceneManager.GetActiveScene().name != ibsoScene)
         {
-            SceneLoader.LoadScene(ibsoScene);
+            //SceneLoader.LoadScene(ibsoScene);
         }
         yield return null;
     }
