@@ -3,6 +3,6 @@
   <Tracking>
     <ImageTarget name="collage2" size="0.300000 0.229787" />
     <ImageTarget name="ground" size="0.300000 0.212208" />
-    <CylinderTarget name="bottle-cylinder" sideLength="0.100000"/>
+    <CylinderTarget name="bottle-mix" sideLength="0.155000"/>
   </Tracking>
 </QCARConfig>
