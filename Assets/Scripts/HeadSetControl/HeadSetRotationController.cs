@@ -1,44 +1,51 @@
 ﻿using UnityEngine;
 
-public class HeadSetRotationController : MonoBehaviour {
+public class HeadSetRotationController : MonoBehaviour
+{
 
     public Transform hmdOrientation;
-    public float minRotation = 0.15f;
+    public Transform worldTransform;
+    public Transform desiredDirection;
+    public float minRotation = 0.10f;
+    public float maxRotation = 0.45f;
     public float rotationSpeed = 3;
-	
-	void Update ()
+
+    private readonly float EPSILON = Mathf.Epsilon;
+
+    void LateUpdate()
     {
-        UpdateZRotation();
-        UpdateXRotation();
+        MoveSatelite();
     }
 
-    private void UpdateXRotation()
+    void MoveSatelite()
     {
-        float hmdXRotation = hmdOrientation.rotation.x;
-        Quaternion rotation = transform.rotation;
-
-        //transform.rotation = Quaternion.Slerp(rotation, new Quaternion(-25f, rotation.y, rotation.z, rotation.w), hmdXRotation);
-
-        //if (hmdXRotation > minRotation)
-        //{
-        //    transform.rotation = Quaternion.Slerp(rotation, new Quaternion(-25, rotation.y, rotation.z, rotation.w), hmdXRotation/180);
-        //}
-        //else if (hmdXRotation < -minRotation)
-        //{
-        //    transform.rotation = Quaternion.Lerp(rotation, new Quaternion(25, rotation.y, rotation.z, rotation.w), -hmdXRotation/180);
-        //}
+        if (Mathf.Abs(GetMoveUp()) > EPSILON)
+        {
+            int height = 0;
+            if (GetMoveUp() > 0.05) height = 1;
+            if (GetMoveUp() < 0.05) height = -1;
+            transform.position = Vector3.Slerp(transform.position, new Vector3(transform.position.x, worldTransform.position.y + 450 * height, transform.position.z), Mathf.Abs(GetMoveUp()) * rotationSpeed * Time.deltaTime);
+        }
+        transform.RotateAround(worldTransform.position, worldTransform.up, rotationSpeed/5 * GetMoveRight());
     }
 
-    private void UpdateZRotation()
+    private float GetMoveUp()
     {
-        float hmdZRotation = hmdOrientation.rotation.z;
-        if (hmdZRotation > minRotation)
-        {
-            this.transform.Rotate(new Vector3(0, rotationSpeed * -(hmdZRotation - minRotation), 0));
-        }
-        else if (hmdZRotation < -minRotation)
-        {
-            this.transform.Rotate(new Vector3(0, rotationSpeed * -(hmdZRotation + minRotation), 0));
-        }
+        float moveUp = EPSILON;
+
+        if (hmdOrientation.localRotation.x < -minRotation) moveUp = -hmdOrientation.localRotation.x+minRotation;
+        if (hmdOrientation.localRotation.x > minRotation) moveUp = -hmdOrientation.localRotation.x-minRotation;
+        if (hmdOrientation.localRotation.x > maxRotation || hmdOrientation.localRotation.x < -maxRotation) moveUp = EPSILON;
+        return moveUp;
+    }
+
+    private float GetMoveRight()
+    {
+        float moveRight = 0;
+
+        if (hmdOrientation.localRotation.y < -minRotation) moveRight = -hmdOrientation.localRotation.y+minRotation;
+        if (hmdOrientation.localRotation.y > minRotation) moveRight = -hmdOrientation.localRotation.y-minRotation;
+        if (hmdOrientation.localRotation.y > maxRotation || hmdOrientation.localRotation.y < -maxRotation) moveRight = 0;
+        return moveRight;
     }
 }

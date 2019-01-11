@@ -24,26 +24,19 @@ public class SelectCountry : MonoBehaviour
     {
         audioEffect.PlayOneShot(audioEffect.clip);
 
-        DeleteControllers();
+        HeadSetController.SetActiveControllers(false);
 
         StartCoroutine(NavigateAndFade());
     }
 
     private IEnumerator NavigateAndFade()
     {
+        Physics.autoSimulation = false;
+
         StartCoroutine(navigation.NavigationIterator(controllerPosition, GetComponentInParent<Transform>()));
 
         yield return new WaitForSeconds(1);
 
         SceneLoader.LoadScene(countryName);
-    }
-
-    private void DeleteControllers()
-    {
-        GameObject[] controllers = GameObject.FindGameObjectsWithTag("GameController");
-        foreach (GameObject controller in controllers)
-        {
-            controller.SetActive(false);
-        }
     }
 }

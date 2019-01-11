@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,12 +40,19 @@ public class AlarmClock : MonoBehaviour {
 
             _time = new DateTime(GlobalCountDown.TimeLeft.Ticks);
             DateTime.TryParse("00:00", out _alarm);
+
+            if (GlobalCountDown.TimeLeft == TimeSpan.Zero)
+            {
+                AlarmActive = true;
+            }
         }
     }
 
     public void ActivateAlarm() {
         if (!AlarmActive)
         {
+            print("oi");
+
             AlarmActive = true;
             if (alarmSound != null)
             {
@@ -72,12 +77,6 @@ public class AlarmClock : MonoBehaviour {
     {
         if (CountDown)
         {
-            if (GlobalCountDown.TimeLeft <= TimeSpan.Zero)
-            {
-                ClockIsActive = false;
-                ActivateAlarm();
-                _time = new DateTime(0);
-            }
             if (ClockIsActive)
             {
                 _time = _time.AddSeconds(-1);
@@ -85,6 +84,13 @@ public class AlarmClock : MonoBehaviour {
             if (AlarmText)
             {
                 AlarmText.text = _time.ToString(Format);
+            }
+            if (_time.Hour == 0
+                && _time.Minute == 0
+                && _time.Second == 0)
+            {
+                ActivateAlarm();
+                ClockIsActive = false;
             }
         }
         else

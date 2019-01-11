@@ -12,6 +12,7 @@ public class HeadSetController : MonoBehaviour
 
     void Start()
     {
+        //StartCoroutine(StartActivateControllers());
         GlobalCountDown.StartCountDown(TimeSpan.FromSeconds(gameTime));
     }
 
@@ -29,6 +30,26 @@ public class HeadSetController : MonoBehaviour
         {
             StartCoroutine(WaitThenLoadIBSO());
         }
+    }
+
+    public static void SetActiveControllers(bool active)
+    {
+        GameObject[] controllers = GameObject.FindGameObjectsWithTag("GameController");
+        foreach (GameObject controller in controllers)
+        {
+            controller.SetActive(active);
+        }
+    }
+
+    private IEnumerator StartActivateControllers()
+    {
+        SetActiveControllers(false);
+
+        yield return new WaitForSeconds(2);
+
+        SetActiveControllers(true);
+
+        yield return null;
     }
 
     private void BackToStart()

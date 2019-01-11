@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
   <Tracking>
-    <ImageTarget name="Fuhr_bier" size="0.050000 0.144718" />
-    <ImageTarget name="IMG_20181205_140213" size="1.150000 0.771599" />
     <ImageTarget name="collage2" size="0.300000 0.229787" />
     <ImageTarget name="ground" size="0.300000 0.212208" />
+    <CylinderTarget name="bottle-mix" sideLength="0.155000"/>
   </Tracking>
 </QCARConfig>

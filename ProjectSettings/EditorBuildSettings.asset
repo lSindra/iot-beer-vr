@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LoadingLevel.unity
     guid: a3f87ead8e380db49b0b4f50cfb95290
+  - enabled: 0
+    path: Assets/Scenes/TestScene.unity
+    guid: 4b371280f2e1e4b90a6dc33188b0ffd1
   m_configObjects: {}
