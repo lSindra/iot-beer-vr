@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-//using KetosGames.SceneTransition;
+using KetosGames.SceneTransition;
 using VRStandardAssets.Utils;
 
 public class SelectCountry : MonoBehaviour
@@ -37,6 +37,6 @@ public class SelectCountry : MonoBehaviour
 
         yield return new WaitForSeconds(1);
 
-        //SceneLoader.LoadScene(countryName);
+        SceneLoader.LoadScene(countryName);
     }
 }

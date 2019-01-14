@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
-//using KetosGames.SceneTransition;
+using KetosGames.SceneTransition;
+using Valve.VR;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +11,8 @@ public class HeadSetController : MonoBehaviour
     public string ibsoScene = "IBSO";
     public int gameTime = 120;
 
+    private bool active = false;
+
     void Start()
     {
         //StartCoroutine(StartActivateControllers());
@@ -18,11 +21,14 @@ public class HeadSetController : MonoBehaviour
 
     void Update()
     {
-        //if (!OVRPlugin.userPresent)
-        //{
-        //    RestartGame();
-        //}
-        //if (OVRInput.Get(OVRInput.Button.Two))
+        if (!Valve.VR.SteamVR.active && active == true)
+        {
+            active = false;
+            RestartGame();
+        } else {
+            active = true;
+        }
+        //if (SteamVR_Input.actionsIn.)
         //{
         //    BackToStart();
         //}
@@ -56,13 +62,13 @@ public class HeadSetController : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name != mainScene)
         {
-            //SceneLoader.LoadScene(mainScene);
+            SceneLoader.LoadScene(mainScene);
         }
     }
 
     private void RestartGame()
     {
-        //SceneLoader.LoadScene(mainScene);
+        SceneLoader.LoadScene(mainScene);
         GlobalCountDown.RestartCountDown(TimeSpan.FromSeconds(gameTime));
     }
 
@@ -70,7 +76,7 @@ public class HeadSetController : MonoBehaviour
         yield return new WaitForSeconds(3);
         if (SceneManager.GetActiveScene().name != ibsoScene)
         {
-            //SceneLoader.LoadScene(ibsoScene);
+            SceneLoader.LoadScene(ibsoScene);
         }
         yield return null;
     }
