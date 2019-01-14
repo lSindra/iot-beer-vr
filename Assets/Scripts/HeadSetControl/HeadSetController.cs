@@ -18,14 +18,14 @@ public class HeadSetController : MonoBehaviour
 
     void Update()
     {
-        if (!OVRPlugin.userPresent)
-        {
-            RestartGame();
-        }
-        if (OVRInput.Get(OVRInput.Button.Two))
-        {
-            BackToStart();
-        }
+        //if (!OVRPlugin.userPresent)
+        //{
+        //    RestartGame();
+        //}
+        //if (OVRInput.Get(OVRInput.Button.Two))
+        //{
+        //    BackToStart();
+        //}
         if (GlobalCountDown.TimeLeft <= TimeSpan.Zero)
         {
             StartCoroutine(WaitThenLoadIBSO());
