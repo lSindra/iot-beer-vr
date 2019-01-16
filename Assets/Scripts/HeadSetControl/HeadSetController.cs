@@ -21,7 +21,7 @@ public class HeadSetController : MonoBehaviour
 
     void Update()
     {
-        if (!Valve.VR.SteamVR.active && active == true)
+        if (!SteamVR.active && active == true)
         {
             active = false;
             RestartGame();

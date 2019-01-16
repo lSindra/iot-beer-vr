@@ -3,24 +3,21 @@ using Valve.VR.InteractionSystem;
 
 public class BeerBottle : MonoBehaviour
 {
-    public float beerAmount = 140;
-    public float minPouringAngle = 45;
+    public float beerAmount = 100;
+    public float beerLeft = 100;
+    public float minPouringAngle = 100;
     public GameObject cap;
     public ParticleSystem pouringEffect;
+    public bool isOpen = false;
 
-    private bool isOpen;
     private Interactable interactable;
-    private ParticleSystem.EmissionModule emission;
-    private float beerLeft;
+    private bool pouringBeer = false;
 
     void Start()
     {
-        isOpen = false;
         interactable = GetComponent<Interactable>();
-        emission = pouringEffect.emission;
-        beerLeft = beerAmount;
 
-        InvokeRepeating("UpdateBottleAmount", 0, 0.2f);
+        InvokeRepeating("UpdateBeerAmount", 0, 0.2f);
     }
 
     void Update()
@@ -39,6 +36,16 @@ public class BeerBottle : MonoBehaviour
         }
     }
 
+    bool AddBeer(float amount)
+    {
+        if (beerLeft < beerAmount)
+        {
+            beerLeft += amount;
+            return true;
+        }
+        return false;
+    }
+
     float GetBottleAngle()
     {
         return Vector3.Angle(-transform.up, Vector3.up);
@@ -46,14 +53,34 @@ public class BeerBottle : MonoBehaviour
 
     void UpdateBottleLiquid(float bottleAngle)
     {
-        emission.enabled = bottleAngle > minPouringAngle + beerLeft - beerAmount ? true : false;
+        if (bottleAngle < minPouringAngle - beerAmount + beerLeft)
+        {
+            pouringEffect.Emit(1);
+            pouringBeer = true;
+        } else
+        {
+            pouringBeer = false;
+        }
     }
 
     void UpdateBeerAmount()
     {
-        if (emission.enabled && beerLeft > 0)
+        if (pouringBeer && beerLeft > 0)
         {
-            beerLeft -= beerAmount / 50;
+            beerLeft -= beerAmount/30;
+        }
+    }
+
+    void OnParticleCollision(GameObject particle)
+    {
+        FillCupWithBeer(particle);
+    }
+
+    void FillCupWithBeer(GameObject particle)
+    {
+        if (!AddBeer(0.5f))
+        {
+            //Destroy(particle);
         }
     }
 }
