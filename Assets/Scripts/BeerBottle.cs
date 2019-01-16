@@ -3,6 +3,7 @@ using Valve.VR.InteractionSystem;
 
 public class BeerBottle : MonoBehaviour
 {
+    public float beerAmount = 140;
     public float minPouringAngle = 45;
     public GameObject cap;
     public ParticleSystem pouringEffect;
@@ -10,12 +11,16 @@ public class BeerBottle : MonoBehaviour
     private bool isOpen;
     private Interactable interactable;
     private ParticleSystem.EmissionModule emission;
+    private float beerLeft;
 
     void Start()
     {
         isOpen = false;
         interactable = GetComponent<Interactable>();
         emission = pouringEffect.emission;
+        beerLeft = beerAmount;
+
+        InvokeRepeating("UpdateBottleAmount", 0, 0.2f);
     }
 
     void Update()
@@ -41,6 +46,14 @@ public class BeerBottle : MonoBehaviour
 
     void UpdateBottleLiquid(float bottleAngle)
     {
-        emission.enabled = bottleAngle > minPouringAngle ? true : false;
+        emission.enabled = bottleAngle > minPouringAngle + beerLeft - beerAmount ? true : false;
+    }
+
+    void UpdateBeerAmount()
+    {
+        if (emission.enabled && beerLeft > 0)
+        {
+            beerLeft -= beerAmount / 50;
+        }
     }
 }
