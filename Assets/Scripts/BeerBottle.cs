@@ -83,4 +83,9 @@ public class BeerBottle : MonoBehaviour
             //Destroy(particle);
         }
     }
+
+    public float PercentageFilled()
+    {
+        return beerLeft * 100 / beerAmount;
+    }
 }
