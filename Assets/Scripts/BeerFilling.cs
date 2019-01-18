@@ -6,8 +6,10 @@ public class BeerFilling : MonoBehaviour
 {
     public List<GameObject> drinkLayers;
     public BeerBottle beerBottle;
+    public LiquidPhysics liquidPhysics;
 
     private List<float> layersLevels = new List<float>();
+    private GameObject topLayer;
 
     void Start()
     {
@@ -17,6 +19,11 @@ public class BeerFilling : MonoBehaviour
     void Update()
     {
         UpdateShowLayerLevel();
+
+        if (beerBottle.PercentageFilled() > layersLevels[0])
+        {
+            liquidPhysics.UpdateLayerRotation(topLayer);
+        }
     }
 
     void InitLayersLevels()
@@ -42,6 +49,7 @@ public class BeerFilling : MonoBehaviour
             } else
             {
                 drinkLayer.SetActive(true);
+                topLayer = drinkLayer;
             }
         }
     }
