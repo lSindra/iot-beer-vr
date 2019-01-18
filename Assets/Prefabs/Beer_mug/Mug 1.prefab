@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 4027340125179163370}
   - component: {fileID: 4027340125179163371}
   - component: {fileID: 5662182224966865568}
+  - component: {fileID: 1007623761}
   m_Layer: 11
   m_Name: Refil
   m_TagString: Untagged
@@ -223,10 +224,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   beerAmount: 50
-  beerLeft: 0
-  minPouringAngle: 45
+  beerLeft: 50
+  minPouringAngle: 100
   cap: {fileID: 0}
   pouringEffect: {fileID: 4027340125521495717}
+  openingEffect: {fileID: 0}
   isOpen: 1
 --- !u!114 &5662182224966865568
 MonoBehaviour:
@@ -247,6 +249,21 @@ MonoBehaviour:
   - {fileID: 4027340124930284303}
   - {fileID: 4027340125850742538}
   beerBottle: {fileID: 4027340125179163371}
+  liquidPhysics: {fileID: 1007623761}
+--- !u!114 &1007623761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4027340125179163369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa18abb4baf444ba999c1fd0ac195ba0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sloshSpeed: 65
+  difference: 25
 --- !u!1 &4027340125348657334
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,8 +449,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4027340125367333829}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0.001699999, y: 0.0639, z: 0.0019}
-  m_LocalScale: {x: 0.08860014, y: 0.08860014, z: 0.085270114}
+  m_LocalPosition: {x: 0.001699999, y: 0.0581, z: 0.0019}
+  m_LocalScale: {x: 0.69939846, y: 0.69939846, z: 0.67311174}
   m_Children: []
   m_Father: {fileID: 4027340125348657332}
   m_RootOrder: 3
@@ -447,7 +464,7 @@ ParticleSystem:
   m_GameObject: {fileID: 4027340125367333829}
   serializedVersion: 6
   lengthInSec: 3.34
-  simulationSpeed: 1
+  simulationSpeed: 0.6
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -5130,8 +5147,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4027340125850742538}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0017835051, y: 0.02789998, z: -0.0005106628}
-  m_LocalScale: {x: -0.06440864, y: -0.00917611, z: -0.06440865}
+  m_LocalPosition: {x: 0.0017815, y: 0.0314, z: -0.00050515}
+  m_LocalScale: {x: -0.06312047, y: -0.006755568, z: -0.063120484}
   m_Children:
   - {fileID: 4027340126279498913}
   m_Father: {fileID: 4027340126211981213}
@@ -5205,7 +5222,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4027340126061018431}
-  m_LocalRotation: {x: -0.7071069, y: 0, z: -0, w: 0.70710677}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.5361469, y: 0.26486373, z: 2.592063}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5213,7 +5230,7 @@ Transform:
   - {fileID: 4027340125348657332}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
 --- !u!1 &4027340126211981186
 GameObject:
   m_ObjectHideFlags: 0
@@ -5275,8 +5292,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4027340126279498918}
   m_LocalRotation: {x: 0.000000029802315, y: -0.7372773, z: -0.000000029802315, w: 0.6755902}
-  m_LocalPosition: {x: 0.0012965047, y: 9.752729, z: -0.007928481}
-  m_LocalScale: {x: -15.525884, y: -108.9787, z: -15.525879}
+  m_LocalPosition: {x: 0.0013106, y: 14.127, z: -0.0079456}
+  m_LocalScale: {x: -15.243089, y: -136.59889, z: -15.243084}
   m_Children: []
   m_Father: {fileID: 4027340125850742534}
   m_RootOrder: 0

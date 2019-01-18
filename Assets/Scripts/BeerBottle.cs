@@ -8,6 +8,7 @@ public class BeerBottle : MonoBehaviour
     public float minPouringAngle = 100;
     public GameObject cap;
     public ParticleSystem pouringEffect;
+    public ParticleSystem openingEffect;
     public bool isOpen = false;
 
     private Interactable interactable;
@@ -32,6 +33,8 @@ public class BeerBottle : MonoBehaviour
             {
                 isOpen = true;
                 cap.SetActive(false);
+                pouringEffect.Emit(1);
+                openingEffect.Emit(1);
             }
         }
     }
