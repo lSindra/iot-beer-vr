@@ -28,14 +28,7 @@ public class BeerBottle : MonoBehaviour
             UpdateBottleLiquid(GetBottleAngle());
         } else if (interactable.attachedToHand)
         {
-            bool isOpeningBottle = false;
-            if (isOpeningBottle)
-            {
-                isOpen = true;
-                cap.SetActive(false);
-                pouringEffect.Emit(1);
-                openingEffect.Emit(1);
-            }
+            cap.GetComponent<CapOpening>().enabled = true;
         }
     }
 
@@ -76,19 +69,19 @@ public class BeerBottle : MonoBehaviour
 
     void OnParticleCollision(GameObject particle)
     {
-        FillCupWithBeer(particle);
-    }
-
-    void FillCupWithBeer(GameObject particle)
-    {
-        if (!AddBeer(0.5f))
-        {
-            //Destroy(particle);
-        }
+        AddBeer(0.5f);
     }
 
     public float PercentageFilled()
     {
         return beerLeft * 100 / beerAmount;
+    }
+
+    public void OpenCap()
+    {
+        isOpen = true;
+        cap.SetActive(false);
+        pouringEffect.Emit(1);
+        openingEffect.Emit(1);
     }
 }
