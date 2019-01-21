@@ -5594,7 +5594,6 @@ GameObject:
   - component: {fileID: 4027340127049727404}
   - component: {fileID: 874581423}
   - component: {fileID: 874581422}
-  - component: {fileID: 874581421}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -5794,19 +5793,3 @@ MonoBehaviour:
   interactable: {fileID: 0}
   gripOffset: {fileID: 0}
   pinchOffset: {fileID: 0}
---- !u!114 &874581421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4027340127049727570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 783750eec4c41da428b7651515146d14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocityAverageFrames: 5
-  angularVelocityAverageFrames: 11
-  estimateOnAwake: 0
