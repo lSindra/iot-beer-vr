@@ -56,7 +56,9 @@ public class ObjectSpawner : MonoBehaviour
         {
             for (int i = 0; i < spawningObjects.Count; i++)
             {
-                instances.Add(Instantiate(spawningObjects[i], initialTransforms[i].position, initialTransforms[i].rotation));
+                GameObject instance = Instantiate(spawningObjects[i], initialTransforms[i].position, initialTransforms[i].rotation);
+                instance.transform.parent = transform;
+                instances.Add(instance);
             }
         }
     }

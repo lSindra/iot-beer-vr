@@ -1,51 +1,54 @@
 ﻿using UnityEngine;
+using Valve.VR.InteractionSystem;
+using System.Collections;
 
 public class HeadSetRotationController : MonoBehaviour
 {
+    public Player player;
+    public float speed = 20;
+    public float delay = 0;
 
-    public Transform hmdOrientation;
-    public Transform worldTransform;
-    public Transform desiredDirection;
-    public float minRotation = 0.10f;
-    public float maxRotation = 0.45f;
-    public float rotationSpeed = 3;
+    private Transform hmdOrientation;
+    private Rigidbody thisBody;
+    private bool ready = false;
 
-    private readonly float EPSILON = Mathf.Epsilon;
-
-    void LateUpdate()
+    void Start()
     {
-        MoveSatelite();
+        hmdOrientation = player.hmdTransform;
+        thisBody = GetComponent<Rigidbody>();
+        StartCoroutine("GetReady");
+    }
+
+    void Update()
+    {
+        if (ready)
+        {
+            MoveSatelite();
+        }
+    }
+
+    IEnumerator GetReady()
+    {
+        yield return new WaitForSeconds(delay);
+        ready = true;
     }
 
     void MoveSatelite()
     {
-        if (Mathf.Abs(GetMoveUp()) > EPSILON)
-        {
-            int height = 0;
-            if (GetMoveUp() > 0.05) height = 1;
-            if (GetMoveUp() < 0.05) height = -1;
-            transform.position = Vector3.Slerp(transform.position, new Vector3(transform.position.x, worldTransform.position.y + 450 * height, transform.position.z), Mathf.Abs(GetMoveUp()) * rotationSpeed * Time.deltaTime);
-        }
-        transform.RotateAround(worldTransform.position, worldTransform.up, rotationSpeed/5 * GetMoveRight());
+        thisBody.AddForce(-Vector3.up * speed / 200 * GetRotationX() * Time.deltaTime);
+
+        thisBody.AddRelativeForce(-Vector3.right * speed / 100 * GetRotationY() * Time.deltaTime);
     }
 
-    private float GetMoveUp()
+    private float GetRotationY()
     {
-        float moveUp = EPSILON;
-
-        if (hmdOrientation.localRotation.x < -minRotation) moveUp = -hmdOrientation.localRotation.x+minRotation;
-        if (hmdOrientation.localRotation.x > minRotation) moveUp = -hmdOrientation.localRotation.x-minRotation;
-        if (hmdOrientation.localRotation.x > maxRotation || hmdOrientation.localRotation.x < -maxRotation) moveUp = EPSILON;
-        return moveUp;
+        float y = hmdOrientation.localRotation.y;
+        return y < 0.5 && y > -0.5 ? -y : 0;
     }
 
-    private float GetMoveRight()
+    private float GetRotationX()
     {
-        float moveRight = 0;
-
-        if (hmdOrientation.localRotation.y < -minRotation) moveRight = -hmdOrientation.localRotation.y+minRotation;
-        if (hmdOrientation.localRotation.y > minRotation) moveRight = -hmdOrientation.localRotation.y-minRotation;
-        if (hmdOrientation.localRotation.y > maxRotation || hmdOrientation.localRotation.y < -maxRotation) moveRight = 0;
-        return moveRight;
+        float x = hmdOrientation.localRotation.x;
+        return x < 0.5 && x > -0.5 ? x : 0;
     }
 }
