@@ -4,6 +4,7 @@ using KetosGames.SceneTransition;
 using Valve.VR;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Valve.VR.InteractionSystem;
 
 public class HeadSetController : MonoBehaviour
 {
@@ -16,26 +17,14 @@ public class HeadSetController : MonoBehaviour
     void Start()
     {
         //StartCoroutine(StartActivateControllers());
+        StartCoroutine(WaitThenLoadIBSO());
+
         GlobalCountDown.StartCountDown(TimeSpan.FromSeconds(gameTime));
     }
 
     void Update()
     {
-        if (!SteamVR.active && active == true)
-        {
-            active = false;
-            RestartGame();
-        } else {
-            active = true;
-        }
-        //if (SteamVR_Input.actionsIn.)
-        //{
-        //    BackToStart();
-        //}
-        if (GlobalCountDown.TimeLeft <= TimeSpan.Zero)
-        {
-            StartCoroutine(WaitThenLoadIBSO());
-        }
+       
     }
 
     public static void SetActiveControllers(bool active)
@@ -78,6 +67,5 @@ public class HeadSetController : MonoBehaviour
         {
             SceneLoader.LoadScene(ibsoScene);
         }
-        yield return null;
     }
 }
