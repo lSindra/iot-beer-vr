@@ -215,7 +215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   child: {fileID: 395357241}
   text: {fileID: 1626939581078405968}
-  textShift: 15
+  textShift: 3
 --- !u!114 &1757784783
 MonoBehaviour:
   m_ObjectHideFlags: 0

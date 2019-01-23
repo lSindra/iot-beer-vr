@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR;
 using Valve.VR;
+using Valve.VR.InteractionSystem;
 
 public class ShiftTextOnLook : MonoBehaviour {
 
@@ -13,11 +13,12 @@ public class ShiftTextOnLook : MonoBehaviour {
     private Vector3 initialLocalTextPosition;
     private Vector3 maxLocalTextPosition;
     private readonly float maxAngle = 40;
+    private Player player;
 
-	void LateUpdate () {
+    void LateUpdate () {
         //Quaternion rotation = Quaternion.LookRotation(playerCamera.transform.position - transform.position);
         //float angle = rotation.x + rotation.y + rotation.z;
-        float angle = Vector3.Angle(transform.up, InputTracking.GetLocalPosition(XRNode.LeftEye) - child.GetComponent<Renderer>().bounds.center);
+        float angle = Vector3.Angle(-transform.forward, player.hmdTransform.position - child.GetComponent<Renderer>().bounds.center);
 
         if (angle < maxAngle)
         {
@@ -33,6 +34,8 @@ public class ShiftTextOnLook : MonoBehaviour {
 
     void Start()
     {
+        player = FindObjectsOfType<Player>()[0];
+
         initialLocalTextPosition = text.localPosition;
         maxLocalTextPosition = new Vector3(initialLocalTextPosition.x, initialLocalTextPosition.y + textShift, initialLocalTextPosition.z);
     }
