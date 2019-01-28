@@ -8,6 +8,7 @@ public class GUIArrows : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private float m_FadeDuration = 0.5f;       // How long it takes for the arrows to appear and disappear.
     [SerializeField] private float m_ShowAngle = 60f;           // How far from the desired facing direction the player must be facing for the arrows to appear.
+    [SerializeField] private float m_MaxAlphaAngle = 90f;       // How far from the desired facing direction the player must be facing for the arrows to appear.
     [SerializeField] private Transform m_DesiredDirection;      // Indicates which direction the player should be facing (uses world space forward if null).
     [SerializeField] private Renderer[] m_ArrowRenderers;       // Reference to the renderers of the arrows used to fade them in and out.
 
@@ -19,7 +20,7 @@ public class GUIArrows : MonoBehaviour
     private const string k_MaterialPropertyName = "_Alpha";     // The name of the alpha property on the shader being used to fade the arrows.
 
 
-    private void Start ()
+    private void Start()
     {
 
         m_Camera = player.hmdTransform;
@@ -37,13 +38,10 @@ public class GUIArrows : MonoBehaviour
         Vector3 flatCamForward = Vector3.ProjectOnPlane(m_Camera.forward, Vector3.up).normalized;
 
         // The difference angle between the desired facing and the current facing of the player.
-        float angleDelta = Vector3.Angle (desiredForward, flatCamForward);
-
-        // If the difference is greater than the angle at which the arrows are shown, their target alpha is one otherwise it is zero.
-        m_TargetAlpha = angleDelta > m_ShowAngle ? 1f : 0f;
+        float angleDelta = Vector3.Angle(desiredForward, flatCamForward);
 
         // Increment the current alpha value towards the now chosen target alpha and the calculated speed.
-        m_CurrentAlpha = Mathf.MoveTowards (m_CurrentAlpha, m_TargetAlpha, m_FadeSpeed * Time.deltaTime);
+        m_CurrentAlpha = (angleDelta - m_ShowAngle) / (m_MaxAlphaAngle - m_ShowAngle);
 
         // Go through all the arrow renderers and set the given property of their material to the current alpha.
         for (int i = 0; i < m_ArrowRenderers.Length; i++)
@@ -61,7 +59,7 @@ public class GUIArrows : MonoBehaviour
 
 
     // Turn the arrows on.
-    public void Show ()
+    public void Show()
     {
         gameObject.SetActive(true);
     }
