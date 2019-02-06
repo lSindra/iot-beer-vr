@@ -12,8 +12,8 @@ namespace Valve.VR
     public class SteamVR_Skeleton_Poser : MonoBehaviour
     {
         #region Editor Storage
-        public bool poseEditorExpanded;
-        public bool blendEditorExpanded;
+        public bool poseEditorExpanded = true;
+        public bool blendEditorExpanded = true;
         public string[] poseNames;
         #endregion
 
@@ -51,6 +51,8 @@ namespace Valve.VR
 
         private bool poseUpdatedThisFrame;
 
+        public float scale;
+
 
         protected void Awake()
         {
@@ -72,6 +74,84 @@ namespace Valve.VR
             blendedSnapshotR = new SteamVR_Skeleton_PoseSnapshot(boneCount, SteamVR_Input_Sources.RightHand);
 
         }
+
+
+
+        /// <summary>
+        /// Set the blending value of a blendingBehaviour. Works best on Manual type behaviours.
+        /// </summary>
+        public void SetBlendingBehaviourValue(string behaviourName, float value)
+        {
+            PoseBlendingBehaviour behaviour = blendingBehaviours.Find(b => b.name == behaviourName);
+            if(behaviour == null)
+            {
+                Debug.LogError("[SteamVR] Blending Behaviour: " + behaviourName + " not found on Skeleton Poser: " + gameObject.name);
+                return;
+            }
+            if(behaviour.type != PoseBlendingBehaviour.BlenderTypes.Manual)
+            {
+                Debug.LogWarning("[SteamVR] Blending Behaviour: " + behaviourName + " is not a manual behaviour. Its value will likely be overriden.");
+            }
+            behaviour.value = value;
+        }
+        /// <summary>
+        /// Get the blending value of a blendingBehaviour.
+        /// </summary>
+        public float GetBlendingBehaviourValue(string behaviourName)
+        {
+            PoseBlendingBehaviour behaviour = blendingBehaviours.Find(b => b.name == behaviourName);
+            if (behaviour == null)
+            {
+                Debug.LogError("[SteamVR] Blending Behaviour: " + behaviourName + " not found on Skeleton Poser: " + gameObject.name);
+                return 0;
+            }
+            return behaviour.value;
+        }
+
+        /// <summary>
+        /// Enable or disable a blending behaviour.
+        /// </summary>
+        public void SetBlendingBehaviourEnabled(string behaviourName, bool value)
+        {
+            PoseBlendingBehaviour behaviour = blendingBehaviours.Find(b => b.name == behaviourName);
+            if (behaviour == null)
+            {
+                Debug.LogError("[SteamVR] Blending Behaviour: " + behaviourName + " not found on Skeleton Poser: " + gameObject.name);
+                return;
+            }
+            behaviour.enabled = value;
+        }
+        /// <summary>
+        /// Check if a blending behaviour is enabled.
+        /// </summary>
+        /// <param name="behaviourName"></param>
+        /// <returns></returns>
+        public bool GetBlendingBehaviourEnabled(string behaviourName)
+        {
+            PoseBlendingBehaviour behaviour = blendingBehaviours.Find(b => b.name == behaviourName);
+            if (behaviour == null)
+            {
+                Debug.LogError("[SteamVR] Blending Behaviour: " + behaviourName + " not found on Skeleton Poser: " + gameObject.name);
+                return false;
+            }
+            return behaviour.enabled;
+        }
+        /// <summary>
+        /// Get a blending behaviour by name.
+        /// </summary>
+        public PoseBlendingBehaviour GetBlendingBehaviour(string behaviourName)
+        {
+            PoseBlendingBehaviour behaviour = blendingBehaviours.Find(b => b.name == behaviourName);
+            if (behaviour == null)
+            {
+                Debug.LogError("[SteamVR] Blending Behaviour: " + behaviourName + " not found on Skeleton Poser: " + gameObject.name);
+                return null;
+            }
+            return behaviour;
+        }
+
+
+
 
         public SteamVR_Skeleton_Pose GetPoseByIndex(int index)
         {
@@ -201,11 +281,11 @@ namespace Valve.VR
             {
                 if (inputSource == SteamVR_Input_Sources.LeftHand)
                 {
-                    return snapshotR;
+                    return snapshotL;
                 }
                 else
                 {
-                    return snapshotL;
+                    return snapshotR;
                 }
             }
 
@@ -317,10 +397,16 @@ namespace Valve.VR
             /// <param name="inputSource">Which hand to receive input from</param>
             public void ApplyBlending(SteamVR_Skeleton_PoseSnapshot snapshot, SkeletonBlendablePose[] blendPoses, SteamVR_Input_Sources inputSource)
             {
+                SteamVR_Skeleton_PoseSnapshot targetSnapshot = blendPoses[pose].GetHandSnapshot(inputSource);
+                if (mask.GetFinger(0) || useMask == false)
+                {
+                    snapshot.position = Vector3.Lerp(snapshot.position, targetSnapshot.position, influence * value);
+                    snapshot.rotation = Quaternion.Slerp(snapshot.rotation, targetSnapshot.rotation, influence * value);
+                }
+
                 for (int boneIndex = 0; boneIndex < snapshot.bonePositions.Length; boneIndex++)
                 {
                     // verify the current finger is enabled in the mask, or if no mask is used.
-                    SteamVR_Skeleton_PoseSnapshot targetSnapshot = blendPoses[pose].GetHandSnapshot(inputSource);
                     if (mask.GetFinger(SteamVR_Skeleton_JointIndexes.GetFingerForBone(boneIndex) + 1) || useMask == false)
                     {
                         snapshot.bonePositions[boneIndex] = Vector3.Lerp(snapshot.bonePositions[boneIndex], targetSnapshot.bonePositions[boneIndex], influence * value);

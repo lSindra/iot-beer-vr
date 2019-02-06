@@ -32,6 +32,7 @@ namespace Valve.VR
         private SerializedProperty poseEditorExpanded;
         private SerializedProperty blendEditorExpanded;
 
+        private SerializedProperty poserScale;
 
 
 
@@ -65,6 +66,7 @@ namespace Valve.VR
             poseEditorExpanded = serializedObject.FindProperty("poseEditorExpanded");
             blendEditorExpanded = serializedObject.FindProperty("blendEditorExpanded");
 
+            poserScale = serializedObject.FindProperty("scale");
 
 
             blendingBehaviourArray = serializedObject.FindProperty("blendingBehaviours");
@@ -109,7 +111,7 @@ namespace Valve.VR
             }
         }
 
-        protected void UpdatePreviewHand(SerializedProperty instanceProperty, SerializedProperty showPreviewProperty, SerializedProperty prefabProperty, SteamVR_Skeleton_Pose_Hand handData, bool forceUpdate)
+        protected void UpdatePreviewHand(SerializedProperty instanceProperty, SerializedProperty showPreviewProperty, SerializedProperty prefabProperty, SteamVR_Skeleton_Pose_Hand handData, SteamVR_Skeleton_Pose sourcePose, bool forceUpdate)
         {
             GameObject preview = instanceProperty.objectReferenceValue as GameObject;
             //EditorGUILayout.PropertyField(showPreviewProperty);
@@ -123,6 +125,7 @@ namespace Valve.VR
                 if (preview == null)
                 {
                     preview = GameObject.Instantiate<GameObject>((GameObject)prefabProperty.objectReferenceValue);
+                    preview.transform.localScale = Vector3.one * poserScale.floatValue;
                     preview.transform.parent = poser.transform;
                     preview.transform.localPosition = Vector3.zero;
                     preview.transform.localRotation = Quaternion.identity;
@@ -136,12 +139,16 @@ namespace Valve.VR
                     {
                         if (handData.bonePositions == null || handData.bonePositions.Length == 0)
                         {
-                            previewSkeleton.ForceToReferencePose(defaultReferencePose);
-                            SaveHandData(handData, previewSkeleton);
+                            SteamVR_Skeleton_Pose poseResource = (SteamVR_Skeleton_Pose)Resources.Load("ReferencePose_OpenHand");
+                            DeepCopyPose(poseResource, sourcePose);
+                            EditorUtility.SetDirty(sourcePose);
                         }
 
                         preview.transform.localPosition = Vector3.zero;
                         preview.transform.localRotation = Quaternion.identity;
+                        preview.transform.parent = null;
+                        preview.transform.localScale = Vector3.one * poserScale.floatValue;
+                        preview.transform.parent = poser.transform;
 
                         preview.transform.localRotation = Quaternion.Inverse(handData.rotation);
                         preview.transform.position = preview.transform.TransformPoint(-handData.position);
@@ -401,6 +408,15 @@ namespace Valve.VR
         {
             int boneNum = SteamVR_Action_Skeleton.numBones;
 
+            if (dest.rightHand.bonePositions == null) dest.rightHand.bonePositions = new Vector3[boneNum];
+            if (dest.rightHand.boneRotations == null) dest.rightHand.boneRotations = new Quaternion[boneNum];
+
+            if (dest.leftHand.bonePositions == null) dest.leftHand.bonePositions = new Vector3[boneNum];
+            if (dest.leftHand.boneRotations == null) dest.leftHand.boneRotations = new Quaternion[boneNum];
+
+            EditorUtility.SetDirty(dest);
+
+
             // RIGHT HAND COPY
 
             dest.rightHand.position = source.rightHand.position;
@@ -447,10 +463,9 @@ namespace Valve.VR
 
         public override void OnInspectorGUI()
         {
-            forceUpdateHands = false;
+
 
             serializedObject.Update();
-
 
             DrawPoseEditorMenu();
 
@@ -486,105 +501,132 @@ namespace Valve.VR
                     activePoseProp = skeletonAdditionalPosesProperty.GetArrayElementAtIndex(activePoseIndex - 1);
 
 
-                if (activePoseProp.objectReferenceValue != null)
+                //box containing all pose editing controls
+                GUILayout.BeginVertical("box");
+
+
+                poseEditorExpanded.boolValue = IndentedFoldoutHeader(poseEditorExpanded.boolValue, "Pose Editor");
+
+
+                if (poseEditorExpanded.boolValue)
                 {
-                    //box containing all pose editing controls
+                    //show selectable menu of all poses, highlighting the one that is selected
+                    EditorGUILayout.Space();
+
+
+                    poser.poseNames = new string[skeletonAdditionalPosesProperty.arraySize + 1];
+
+                    for (int i = 0; i < skeletonAdditionalPosesProperty.arraySize + 1; i++)
+                    {
+                        if (i == 0)
+                            // main pose special case
+                            poser.poseNames[i] = skeletonMainPoseProperty.objectReferenceValue == null ? "[not set]" : skeletonMainPoseProperty.objectReferenceValue.name + " (MAIN)";
+                        else
+                            // additional poses from array
+                            poser.poseNames[i] = skeletonAdditionalPosesProperty.GetArrayElementAtIndex(i - 1).objectReferenceValue == null ? "[not set]" : skeletonAdditionalPosesProperty.GetArrayElementAtIndex(i - 1).objectReferenceValue.name;
+                    }
+
+                    EditorGUILayout.BeginHorizontal();
+                    int poseSelected = GUILayout.Toolbar(activePoseIndex, poser.poseNames);
+
+                    if (poseSelected != activePoseIndex)
+                    {
+                        forceUpdateHands = true;
+                        activePoseIndex = poseSelected;
+                        PoseChanged = true;
+                        previewPoseSelection.intValue = activePoseIndex;
+                        serializedObject.ApplyModifiedProperties();
+                    }
+
+
+
+
+                    EditorGUILayout.BeginVertical(GUILayout.MaxWidth(32));
+                    if (GUILayout.Button("+", GUILayout.MaxWidth(32)))
+                    {
+                        skeletonAdditionalPosesProperty.InsertArrayElementAtIndex(skeletonAdditionalPosesProperty.arraySize);
+                    }
+                    //only allow deletion of additional poses
+                    EditorGUI.BeginDisabledGroup(skeletonAdditionalPosesProperty.arraySize == 0 || activePoseIndex == 0);
+                    if (GUILayout.Button("-", GUILayout.MaxWidth(32)) && skeletonAdditionalPosesProperty.arraySize > 0)
+                    {
+                        skeletonAdditionalPosesProperty.DeleteArrayElementAtIndex(activePoseIndex - 1);
+                        skeletonAdditionalPosesProperty.DeleteArrayElementAtIndex(activePoseIndex - 1);
+                        if (activePoseIndex >= skeletonAdditionalPosesProperty.arraySize + 1)
+                        {
+                            activePoseIndex = skeletonAdditionalPosesProperty.arraySize;
+                            previewPoseSelection.intValue = activePoseIndex;
+                            return;
+                        }
+                    }
+
+                    EditorGUI.EndDisabledGroup();
+                    EditorGUILayout.EndVertical();
+                    GUILayout.FlexibleSpace();
+
+                    EditorGUILayout.EndHorizontal();
+
                     GUILayout.BeginVertical("box");
 
+                    // sides of pose editor
+                    GUILayout.BeginHorizontal();
 
-                    poseEditorExpanded.boolValue = IndentedFoldoutHeader(poseEditorExpanded.boolValue, "Pose Editor");
+                    //pose controls
+                    GUILayout.BeginVertical(GUILayout.MaxWidth(200));
 
+                    GUILayout.Label("Current Pose:");
 
-                    if (poseEditorExpanded.boolValue)
+                    if (PoseChanged)
                     {
-                        //show selectable menu of all poses, highlighting the one that is selected
-                        EditorGUILayout.Space();
+                        PoseChanged = false;
+                        forceUpdateHands = true;
 
-                        poser.poseNames = new string[skeletonAdditionalPosesProperty.arraySize + 1];
+                        if (activePoseIndex == 0)
+                            activePoseProp = skeletonMainPoseProperty;
+                        else
+                            activePoseProp = skeletonAdditionalPosesProperty.GetArrayElementAtIndex(activePoseIndex - 1);
+                        activePose = (SteamVR_Skeleton_Pose)activePoseProp.objectReferenceValue;
 
-                        for (int i = 0; i < skeletonAdditionalPosesProperty.arraySize + 1; i++)
-                        {
-                            if (i == 0)
-                                // main pose special case
-                                poser.poseNames[i] = skeletonMainPoseProperty.objectReferenceValue == null ? "[not set]" : skeletonMainPoseProperty.objectReferenceValue.name + " (MAIN)";
-                            else
-                                // additional poses from array
-                                poser.poseNames[i] = skeletonAdditionalPosesProperty.GetArrayElementAtIndex(i - 1).objectReferenceValue == null ? "[not set]" : skeletonAdditionalPosesProperty.GetArrayElementAtIndex(i - 1).objectReferenceValue.name;
-                        }
+                    }
+
+
+                    activePose = (SteamVR_Skeleton_Pose)activePoseProp.objectReferenceValue;
+                    if (activePoseProp.objectReferenceValue == null)
+                    {
+                        if (previewLeftInstanceProperty.objectReferenceValue != null)
+                            DestroyImmediate(previewLeftInstanceProperty.objectReferenceValue);
+                        if (previewRightInstanceProperty.objectReferenceValue != null)
+                            DestroyImmediate(previewRightInstanceProperty.objectReferenceValue);
 
                         EditorGUILayout.BeginHorizontal();
-                        int poseSelected = GUILayout.Toolbar(activePoseIndex, poser.poseNames);
-
-                        if (poseSelected != activePoseIndex)
-                        {
-                            forceUpdateHands = true;
-                            activePoseIndex = poseSelected;
-                            PoseChanged = true;
-                            serializedObject.ApplyModifiedProperties();
-                        }
-
-
-                        previewPoseSelection.intValue = activePoseIndex;
-
-
-                        EditorGUILayout.BeginVertical(GUILayout.MaxWidth(32));
-                        if (GUILayout.Button("+", GUILayout.MaxWidth(32)))
-                        {
-                            skeletonAdditionalPosesProperty.InsertArrayElementAtIndex(skeletonAdditionalPosesProperty.arraySize);
-                        }
-                        //only allow deletion of additional poses
-                        EditorGUI.BeginDisabledGroup(skeletonAdditionalPosesProperty.arraySize == 0 || activePoseIndex == 0);
-                        if (GUILayout.Button("-", GUILayout.MaxWidth(32)) && skeletonAdditionalPosesProperty.arraySize > 0)
-                        {
-                            skeletonAdditionalPosesProperty.DeleteArrayElementAtIndex(activePoseIndex - 1);
-                            skeletonAdditionalPosesProperty.DeleteArrayElementAtIndex(activePoseIndex - 1);
-                            if (activePoseIndex >= skeletonAdditionalPosesProperty.arraySize + 1)
-                            {
-                                activePoseIndex = skeletonAdditionalPosesProperty.arraySize;
-                                previewPoseSelection.intValue = activePoseIndex;
-                                return;
-                            }
-                        }
-
-                        EditorGUI.EndDisabledGroup();
-                        EditorGUILayout.EndVertical();
-                        GUILayout.FlexibleSpace();
-
+                        activePoseProp.objectReferenceValue = EditorGUILayout.ObjectField(activePoseProp.objectReferenceValue, typeof(SteamVR_Skeleton_Pose), false);
+                        if (GUILayout.Button("Create")) createNew = true;
                         EditorGUILayout.EndHorizontal();
-
-                        GUILayout.BeginVertical("box");
-
-                        // sides of pose editor
-                        GUILayout.BeginHorizontal();
-
-                        //pose controls
-                        GUILayout.BeginVertical(GUILayout.MaxWidth(200));
-
-                        GUILayout.Label("Current Pose:");
-                       
-
-                        activePose = (SteamVR_Skeleton_Pose)activePoseProp.objectReferenceValue;
-                        if (activePoseProp.objectReferenceValue == null)
+                        if (createNew)
                         {
-                            EditorGUILayout.BeginHorizontal();
-                            activePoseProp.objectReferenceValue = EditorGUILayout.ObjectField(activePoseProp.objectReferenceValue, typeof(SteamVR_Skeleton_Pose), false);
-                            createNew = GUILayout.Button("Create");
-                            EditorGUILayout.EndHorizontal();
-                        }
-                        else
-                        {
-                            activePoseProp.objectReferenceValue = EditorGUILayout.ObjectField(activePoseProp.objectReferenceValue, typeof(SteamVR_Skeleton_Pose), false);
+                            string fullPath = EditorUtility.SaveFilePanelInProject("Create New Skeleton Pose", "newPose", "asset", "Save file");
 
-                            DrawPoseControlButtons();
-                            if (PoseChanged)
+                            if (string.IsNullOrEmpty(fullPath) == false)
                             {
-                                PoseChanged = false;
-                                forceUpdateHands = true;
-                            }
-                            UpdatePreviewHand(previewLeftInstanceProperty, showLeftPreviewProperty, previewLeftHandPrefab, activePose.leftHand, forceUpdateHands);
-                            UpdatePreviewHand(previewRightInstanceProperty, showRightPreviewProperty, previewRightHandPrefab, activePose.rightHand, forceUpdateHands);
+                                SteamVR_Skeleton_Pose newPose = ScriptableObject.CreateInstance<SteamVR_Skeleton_Pose>();
+                                AssetDatabase.CreateAsset(newPose, fullPath);
+                                AssetDatabase.SaveAssets();
 
+                                activePoseProp.objectReferenceValue = newPose;
+                                serializedObject.ApplyModifiedProperties();
+                            }
                         }
+                    }
+                    else
+                    {
+                        activePoseProp.objectReferenceValue = EditorGUILayout.ObjectField(activePoseProp.objectReferenceValue, typeof(SteamVR_Skeleton_Pose), false);
+
+                        DrawPoseControlButtons();
+
+                        UpdatePreviewHand(previewLeftInstanceProperty, showLeftPreviewProperty, previewLeftHandPrefab, activePose.leftHand, activePose, forceUpdateHands);
+                        UpdatePreviewHand(previewRightInstanceProperty, showRightPreviewProperty, previewRightHandPrefab, activePose.rightHand, activePose, forceUpdateHands);
+
+                        forceUpdateHands = false;
 
                         GUILayout.EndVertical();
 
@@ -609,7 +651,7 @@ namespace Valve.VR
                         if (GUILayout.Button(handTexL, GUI.skin.label, GUILayout.Width(64), GUILayout.Height(64)))
                         {
                             showLeftPreviewProperty.boolValue = !showLeftPreviewProperty.boolValue;
-                            forceUpdateHands = true;
+                            //forceUpdateHands = true;
                         }
                         GUI.color = Color.white;
 
@@ -621,7 +663,7 @@ namespace Valve.VR
 
                         bool showLeft = showLeftPreviewProperty.boolValue;
 
-                        
+
                         DrawHand(showLeft, activePose.leftHand, activePose.rightHand, getLeftFromOpposite);
                         EditorGUILayout.EndVertical();
                         EditorGUI.BeginDisabledGroup((showLeftPreviewProperty.boolValue && showRightPreviewProperty.boolValue) == false);
@@ -643,7 +685,7 @@ namespace Valve.VR
                         if (GUILayout.Button(handTexR, GUI.skin.label, GUILayout.Width(64), GUILayout.Height(64)))
                         {
                             showRightPreviewProperty.boolValue = !showRightPreviewProperty.boolValue;
-                            forceUpdateHands = true;
+                            //forceUpdateHands = true;
                         }
                         GUI.color = Color.white;
                         EditorGUILayout.EndHorizontal();
@@ -652,81 +694,75 @@ namespace Valve.VR
 
                         DrawHand(showRight, activePose.rightHand, activePose.leftHand, getRightFromOpposite);
                         EditorGUILayout.EndVertical();
-                        EditorGUI.BeginDisabledGroup((showLeftPreviewProperty.boolValue && showRightPreviewProperty.boolValue)==false);
+                        EditorGUI.BeginDisabledGroup((showLeftPreviewProperty.boolValue && showRightPreviewProperty.boolValue) == false);
                         getLeftFromOpposite = GUILayout.Button("Copy Right pose to Left hand");
                         EditorGUI.EndDisabledGroup();
-                        EditorGUILayout.EndVertical();
 
-
-
-
-
-
-                        GUILayout.EndHorizontal();
-                        /*
-
-
-
-
-                        if (activePoseProp.objectReferenceValue == null)
-                        {
-                            EditorGUILayout.BeginHorizontal();
-                            EditorGUILayout.PropertyField(activePoseProp);
-                            createNew = GUILayout.Button("Create");
-                            EditorGUILayout.EndHorizontal();
-                        }
-                        else
-                        {
-                            EditorGUILayout.PropertyField(activePoseProp);
-
-                            DrawDivider();
-
-
-                            DrawSaveButtons();
-
-                            if (PoseChanged)
-                            {
-                                PoseChanged = false;
-                                forceUpdateHands = true;
-                            }
-
-                            UpdatePreviewHand(previewLeftInstanceProperty, showLeftPreviewProperty, previewLeftHandPrefab, activePose.leftHand, forceUpdateHands);
-                            UpdatePreviewHand(previewRightInstanceProperty, showRightPreviewProperty, previewRightHandPrefab, activePose.rightHand, forceUpdateHands);
-
-                        }
-
-
-                    */
-                        GUILayout.EndVertical();
                     }
 
-                    GUILayout.EndVertical();
-                }
-                else
-                {
-                    EditorGUILayout.LabelField("Create or select a pose.");
-                    EditorGUILayout.BeginHorizontal();
-                    activePoseProp.objectReferenceValue = EditorGUILayout.ObjectField(activePoseProp.objectReferenceValue, typeof(SteamVR_Skeleton_Pose), false);
-                    createNew = GUILayout.Button("Create");
-                    EditorGUILayout.EndHorizontal();
-                }
 
 
-                if (createNew)
-                {
-                    string fullPath = EditorUtility.SaveFilePanelInProject("Create New Skeleton Pose", "newPose", "asset", "Save file");
 
-                    if (string.IsNullOrEmpty(fullPath) == false)
+
+
+
+                    /*
+
+
+
+
+                    if (activePoseProp.objectReferenceValue == null)
                     {
-                        SteamVR_Skeleton_Pose newPose = ScriptableObject.CreateInstance<SteamVR_Skeleton_Pose>();
-                        AssetDatabase.CreateAsset(newPose, fullPath);
-                        AssetDatabase.SaveAssets();
+                        EditorGUILayout.BeginHorizontal();
+                        EditorGUILayout.PropertyField(activePoseProp);
+                        createNew = GUILayout.Button("Create");
+                        EditorGUILayout.EndHorizontal();
+                    }
+                    else
+                    {
+                        EditorGUILayout.PropertyField(activePoseProp);
 
-                        activePoseProp.objectReferenceValue = newPose;
-                        serializedObject.ApplyModifiedProperties();
+                        DrawDivider();
+
+
+                        DrawSaveButtons();
+
+                        if (PoseChanged)
+                        {
+                            PoseChanged = false;
+                            forceUpdateHands = true;
+                        }
+
+                        UpdatePreviewHand(previewLeftInstanceProperty, showLeftPreviewProperty, previewLeftHandPrefab, activePose.leftHand, forceUpdateHands);
+                        UpdatePreviewHand(previewRightInstanceProperty, showRightPreviewProperty, previewRightHandPrefab, activePose.rightHand, forceUpdateHands);
+
+                    }
+
+                                activePoseProp.objectReferenceValue = newPose;
+                                serializedObject.ApplyModifiedProperties();
+                            }
+                        }
+                    */
+                    GUILayout.EndVertical();
+                    EditorGUILayout.EndVertical();
+                    GUILayout.EndHorizontal();
+
+
+                    EditorGUI.BeginChangeCheck();
+                    EditorGUILayout.BeginHorizontal();
+                    EditorGUIUtility.labelWidth = 120;
+                    poserScale.floatValue = EditorGUILayout.FloatField("Preview Pose Scale", poserScale.floatValue);
+                    if (poserScale.floatValue <= 0) poserScale.floatValue = 1;
+                    EditorGUIUtility.labelWidth = 0;
+                    GUILayout.FlexibleSpace();
+                    EditorGUILayout.EndHorizontal();
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        forceUpdateHands = true;
                     }
                 }
-                //end of pose editor
+
+                GUILayout.EndVertical();
             }
         }
 
@@ -788,6 +824,7 @@ namespace Valve.VR
 
                     GUILayout.Space(10);
                     float bright = blenderEnabled.boolValue ? 0.6f : 0.9f; // grey out box when disabled
+                    if (EditorGUIUtility.isProSkin) bright = 1;
                     GUI.color = new Color(bright, bright, bright);
                     GUILayout.BeginVertical("box");
                     GUI.color = Color.white;

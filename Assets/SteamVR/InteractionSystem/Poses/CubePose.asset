@@ -3,25 +3,27 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
   m_Script: {fileID: 11500000, guid: e90911e410742a1498a167540c7865bf, type: 3}
   m_Name: CubePose
   m_EditorClassIdentifier: 
   leftHand:
     inputSource: 1
     thumbFingerMovementType: 0
-    indexFingerMovementType: 0
-    middleFingerMovementType: 0
-    ringFingerMovementType: 0
-    pinkyFingerMovementType: 0
+    indexFingerMovementType: 2
+    middleFingerMovementType: 2
+    ringFingerMovementType: 2
+    pinkyFingerMovementType: 2
     ignoreRootPoseData: 1
     ignoreWristPoseData: 1
-    position: {x: 0.04388983, y: -0.009897921, z: -0.079624586}
-    rotation: {x: -0.28326723, y: -0.33523262, z: -0.10300676, w: -0.89261883}
+    position: {x: 0.04388981, y: -0.009897895, z: -0.07962455}
+    rotation: {x: -0.28326723, y: 0, z: -0.10300676, w: -0.89261883}
     bonePositions:
     - {x: -0, y: 0, z: 0}
     - {x: -0.034037687, y: 0.03650266, z: 0.16472164}
@@ -89,14 +91,14 @@ MonoBehaviour:
   rightHand:
     inputSource: 2
     thumbFingerMovementType: 0
-    indexFingerMovementType: 0
-    middleFingerMovementType: 0
-    ringFingerMovementType: 0
-    pinkyFingerMovementType: 0
+    indexFingerMovementType: 2
+    middleFingerMovementType: 2
+    ringFingerMovementType: 2
+    pinkyFingerMovementType: 2
     ignoreRootPoseData: 1
     ignoreWristPoseData: 1
-    position: {x: -0.04388983, y: -0.009897921, z: -0.079624586}
-    rotation: {x: 0.28326723, y: -0.33523262, z: -0.10300676, w: 0.89261883}
+    position: {x: -0.04388981, y: -0.009897895, z: -0.07962455}
+    rotation: {x: 0.28326723, y: 0, z: -0.10300676, w: 0.89261883}
     bonePositions:
     - {x: -0, y: 0, z: 0}
     - {x: -0.034037687, y: 0.03650266, z: 0.16472164}
@@ -142,13 +144,13 @@ MonoBehaviour:
     - {x: -0.000951346, y: 0.022837702, z: -0.109021865, w: 0.99377656}
     - {x: 6.938894e-18, y: 1.9428903e-16, z: -1.348151e-33, w: 1}
     - {x: -0.546723, y: -0.46074906, z: -0.44252017, w: 0.54127645}
-    - {x: -0.18312135, y: 0.026026191, z: -0.35584924, w: 0.916057}
+    - {x: -0.18312137, y: 0.026026193, z: -0.35584927, w: 0.91605705}
     - {x: 0.01933357, y: -0.011926016, z: -0.12649985, w: 0.99170655}
     - {x: -0.007192388, y: 0.027495407, z: -0.07201239, w: 0.9969988}
     - {x: 1.1639192e-17, y: -5.602331e-17, z: -0.040125635, w: 0.9991947}
     - {x: -0.5023972, y: -0.44651043, z: -0.51322633, w: 0.5336893}
-    - {x: -0.07072261, y: 0.093865596, z: -0.1932307, w: 0.974089}
-    - {x: -0.002037674, y: -0.0009295045, z: -0.44058633, w: 0.8977074}
+    - {x: -0.07072262, y: 0.0938656, z: -0.19323072, w: 0.9740891}
+    - {x: -0.0020376742, y: -0.0009295046, z: -0.44058636, w: 0.89770746}
     - {x: -0.004270261, y: 0.011974642, z: -0.32042667, w: 0.947188}
     - {x: 6.938894e-18, y: -9.62965e-35, z: -1.3877788e-17, w: 1}
     - {x: -0.52943724, y: -0.312252, z: -0.6584001, w: 0.43440092}
