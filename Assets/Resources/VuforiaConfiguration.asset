@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Name: VuforiaConfiguration
   m_EditorClassIdentifier: 
   vuforia:
-    vuforiaLicenseKey: AW3CLcv/////AAABmWBDIAIl3kEzieCPc8JkYDKAgO3wO7lSz25cV6fqh1MJTQsJPFv5kLBy3CE7bnui6/ihnqRenUaGiNX0OwCUejxk0UGD4zM/YXB5YBEVeTFpwb4EJHxKyhX37ja0oMSJJKXHGT1lXupFOM9LrRV8scdB5Gmig6DRa6vizLed99jU9lEqddSqHLMe6Ugyx39tX6ug/xN5ftAWunPqH9QFVUpqnrBLBrP+al18Kc3FiMQITMvjtSpm3NsBtKksnX85lAq2DEImLFcNI3KZBrKJHJH7nLo3fzujv8+iLjIdurSGfxQH0jB0yNcJgfhaNqXMYoXLPyUcT1Ec/xiGnczSXaYi7AO6wZ/qdiAURJE84bf7
-    ufoLicenseKey: QVlYUzRBYi8vLy8vQUFBQUtDSHN5aDRBT0V6SGk1K0VlOUc1cGxBM1JtR2J3NlVWWmFLTWNJVXZUZjAvblJoYUNlUFpZbFBnTm5Rd20wWjZFS3N4KzBqTEk5aUpLVzdFb2NPelNZRnI2UnpFMW81N0tRM0dCVHhXM0RLNWthRG4yaG1mQ05PYi9RR2Z4WHlZU1l3NXowRnFiSHo4bko0ckg4cThiaU5YQU1aK3V1bHJ6RlJ0MFkxYllPMXZiZmNEUmRXcU04RnZEMHcvUjFxUXYrTFQ3MklkNTloQmJTWnE5UzdyQUkyN0h6MXpoRXI1SWF5NnByeXNPNEpNNzVLRnF1OTFCb0IxWU1nZ3B4eE1Wb2JiZHBuRDBJTndTWnF0QWV4bGFpYVIzZnhjalp5WXFBSExjUkhGSUVZenFaVEVOaFpKbG5la3Vhc3hkZ0pyWjRMZ3VJNjE0ZWtwbW5kTnd4bDVhUjdKY2R3ajY5TUpIajUvMzNGWW1mY3o=
+    vuforiaLicenseKey: 
+    ufoLicenseKey: QVlRNGxpTC8vLy8vQUFBQUtFNlRNYjJsVkVrdXVKL2x6YTFsUUQrWW9VenZ0SFRzWEphSjZqOXJPK1pjc2M0NnArQlhGN1BPUno0MU83NmhINHBnTUVYMlF2Nkg0bUlYU0dmd1c5eHJCcG1BTTdZTDNDdHdpNjRhRXdDYmxEMS9lZElyK0FxUWNtTkJ6K0xiNzhwZy9yd0drZlhkMWdVU09pK2hob1ppV1lOYkxxZStuN3BTd2JodFRQTjNlWVdqaW8reWlUNWxNUWtwQ1BGNUFDODdrYUpZVzY3eGZGb3BsQnlQSm5oaDlSZjh5aVY1WDV0S1NwQW9nY0twaXpGS3JKblZSNkh1WlhaNCtvbDF1djdFT2ZwZk1manJMSGl1OTdDTUdack5ycW5zUFFRa0xJclIwYXJ0dzVjTUlnTnV1NjQ5T1AyVitKREVQMkxoTGNhUUk4OUZ3SE9QS3NxM1k2b1Z4WWJqR0x0cGlORmV3Q0x0YzNsYi9HV1A=
     delayedInitialization: 0
-    cameraDeviceModeSetting: -3
-    maxSimultaneousImageTargets: 5
-    maxSimultaneousObjectTargets: 5
+    cameraDeviceModeSetting: -1
+    maxSimultaneousImageTargets: 1
+    maxSimultaneousObjectTargets: 1
     useDelayedLoadingObjectTargets: 0
     cameraDirection: 0
     mirrorVideoBackground: 0
@@ -26,11 +26,11 @@ MonoBehaviour:
   digitalEyewear:
     cameraOffset: 0.06
     distortionRenderingLayer: 31
-    eyewearType: 2
+    eyewearType: 0
     stereoFramework: 0
     seeThroughConfiguration: 0
-    viewerName: VR Goggles
-    viewerManufacturer: Merge
+    viewerName: 
+    viewerManufacturer: 
     useCustomViewer: 0
     customViewer:
       Version: 0
@@ -50,10 +50,10 @@ MonoBehaviour:
     videoBackgroundShader: {fileID: 4800000, guid: f40623b353e2f1943b1b3ba42975db7a,
       type: 3}
     matteShader: {fileID: 4800000, guid: 66d0d78a3000021448b598bb54a3bfdf, type: 3}
-    videoBackgroundEnabled: 0
+    videoBackgroundEnabled: 1
   deviceTracker:
-    autoInitTracker: 1
-    autoStartTracker: 1
+    autoInitTracker: 0
+    autoStartTracker: 0
     trackingMode: 1
     posePrediction: 0
     modelCorrectionMode: 0

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
 using KetosGames.SceneTransition;
+using Valve.VR;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Valve.VR.InteractionSystem;
 
 public class HeadSetController : MonoBehaviour
 {
@@ -10,22 +12,30 @@ public class HeadSetController : MonoBehaviour
     public string ibsoScene = "IBSO";
     public int gameTime = 120;
 
+    private bool active = false;
+
     void Start()
     {
         //StartCoroutine(StartActivateControllers());
+
         GlobalCountDown.StartCountDown(TimeSpan.FromSeconds(gameTime));
     }
 
     void Update()
     {
-        if (!OVRPlugin.userPresent)
-        {
-            RestartGame();
-        }
-        if (OVRInput.Get(OVRInput.Button.Two))
-        {
-            BackToStart();
-        }
+        //if (!GetComponentInChildren<Player>().headsetOnHead.state && active == true)
+        //{
+        //    active = false;
+        //    RestartGame();
+        //} 
+        //else 
+        //{
+        //    active = true;
+        //}
+        //if (SteamVR_Input.actionsIn.)
+        //{
+        //    BackToStart();
+        //}
         if (GlobalCountDown.TimeLeft <= TimeSpan.Zero)
         {
             StartCoroutine(WaitThenLoadIBSO());
@@ -72,6 +82,5 @@ public class HeadSetController : MonoBehaviour
         {
             SceneLoader.LoadScene(ibsoScene);
         }
-        yield return null;
     }
 }

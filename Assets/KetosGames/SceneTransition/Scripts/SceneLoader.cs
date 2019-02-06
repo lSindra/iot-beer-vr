@@ -179,22 +179,10 @@ namespace KetosGames.SceneTransition
                 setFadeColor(FadeColor);
             }
             SetFadersEnabled(true);
-
-            BeginFadeInProcess();
-        }
-
-        private IEnumerator BeginFadeInProcess()
-        {
-            setFadeColor(Color.Lerp(FadeColor, FadeClearColor, FadeTime));
-
-            yield return new WaitForSeconds(3f);
-
             FadingIn = true;
             FadingOut = false;
             FadeClearColor = FadeColor;
             FadeClearColor.a = 0;
-        
-            yield return null;
         }
 
         /// <summary>
