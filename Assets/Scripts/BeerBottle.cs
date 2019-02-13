@@ -9,6 +9,7 @@ public class BeerBottle : MonoBehaviour
     public GameObject cap;
     public ParticleSystem pouringEffect;
     public ParticleSystem openingEffect;
+    public AudioSource audioSource;
     public bool isOpen = false;
 
     private Interactable interactable;
@@ -64,7 +65,9 @@ public class BeerBottle : MonoBehaviour
         if (pouringBeer && beerLeft > 0)
         {
             beerLeft -= beerAmount/30;
+            if (!audioSource.isPlaying) audioSource.Play();
         }
+        else audioSource.Stop();
     }
 
     void OnParticleCollision(GameObject particle)
